@@ -1,6 +1,6 @@
 <template>
   <!-- Header -->
-  <div class="relative bg-emerald-600 md:pt-32 pb-32 pt-12">
+  <div class="relative bg-blue-200 md:pt-32 pb-32 pt-12">
     <div class="px-4 md:px-10 mx-auto w-full">
       <div>
         <!-- Card stats -->
@@ -11,7 +11,7 @@
               statTitle="350,897"
               statArrow="up"
               statPercent="3.48"
-              statPercentColor="text-emerald-500"
+              statPercentColor="text-blue-500"
               statDescripiron="Since last month"
               statIconName="far fa-chart-bar"
               statIconColor="bg-red-500"
@@ -47,10 +47,10 @@
               statTitle="49,65%"
               statArrow="up"
               statPercent="12"
-              statPercentColor="text-emerald-500"
+              statPercentColor="text-blue-500"
               statDescripiron="Since last month"
               statIconName="fas fa-percent"
-              statIconColor="bg-emerald-500"
+              statIconColor="bg-blue-500"
             />
           </div>
         </div>

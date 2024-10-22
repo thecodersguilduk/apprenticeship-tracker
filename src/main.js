@@ -31,7 +31,7 @@ import Register from "@/views/auth/Register.vue";
 
 import Landing from "@/views/Landing.vue";
 import Profile from "@/views/Profile.vue";
-import Index from "@/views/Index.vue";
+//import Index from "@/views/Index.vue";
 
 // routes
 
@@ -84,7 +84,13 @@ const routes = [
   },
   {
     path: "/",
-    component: Index,
+    component: Admin,
+    children: [
+      {
+        path: "/",
+        component: Dashboard,
+      }
+    ]
   },
   { path: "/:pathMatch(.*)*", redirect: "/" },
 ];

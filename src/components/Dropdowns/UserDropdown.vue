@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="flex text-white gap-2 items-center">
+    welcome user!
     <a
       class="text-blueGray-500 block"
       href="#pablo"
@@ -30,26 +31,7 @@
         href="javascript:void(0);"
         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
       >
-        Action
-      </a>
-      <a
-        href="javascript:void(0);"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-      >
-        Another action
-      </a>
-      <a
-        href="javascript:void(0);"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-      >
-        Something else here
-      </a>
-      <div class="h-0 my-2 border border-solid border-blueGray-100" />
-      <a
-        href="javascript:void(0);"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-      >
-        Seprated link
+        Logout
       </a>
     </div>
   </div>

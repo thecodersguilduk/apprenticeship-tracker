@@ -19,6 +19,7 @@
   </div>
 </template>
 <script>
+import mondayService from '@/../services/mondayService';
 import CardLineChart from "@/components/Cards/CardLineChart.vue";
 import CardBarChart from "@/components/Cards/CardBarChart.vue";
 import CardPageVisits from "@/components/Cards/CardPageVisits.vue";
@@ -31,5 +32,25 @@ export default {
     CardPageVisits,
     CardSocialTraffic,
   },
+  data() {
+    return {
+      boardItems: [],
+    };
+  },
+  mounted() {
+    // Replace with your Monday.com board ID
+    const boardId = 4662225022;
+    const itemId = 7407204352;
+
+    // Fetch board data on component mount
+    mondayService.getBoardData(boardId, itemId).then(items => {
+      this.boardItems = items;
+      console.log('Board items loaded:', this.boardItems);
+
+    }).catch(err => {
+      console.error('Error loading board data:', err);
+    });
+  }
 };
+
 </script>
