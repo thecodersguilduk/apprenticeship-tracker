@@ -40,7 +40,7 @@ export default {
   mounted() {
     // Replace with your Monday.com board ID
     const boardId = 4662225022;
-    const itemId = 7407204352;
+    const itemId = 5554800185;
 
     // Fetch board data on component mount
     mondayService.getBoardData(boardId, itemId).then(items => {
