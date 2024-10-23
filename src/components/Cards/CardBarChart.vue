@@ -9,7 +9,7 @@
             Performance
           </h6>
           <h2 class="text-blueGray-700 text-xl font-semibold">
-            Total orders
+            Tasks Submitted
           </h2>
         </div>
       </div>

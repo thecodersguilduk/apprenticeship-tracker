@@ -7,8 +7,8 @@
         <div class="flex flex-wrap">
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
-              statSubtitle="TRAFFIC"
-              statTitle="350,897"
+              statSubtitle="KSBs Progress"
+              statTitle="34"
               statArrow="up"
               statPercent="3.48"
               statPercentColor="text-blue-500"
@@ -19,8 +19,8 @@
           </div>
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
-              statSubtitle="NEW USERS"
-              statTitle="2,356"
+              statSubtitle="OTJ HOURS LOGGED"
+              statTitle="422"
               statArrow="down"
               statPercent="3.48"
               statPercentColor="text-red-500"
@@ -31,9 +31,9 @@
           </div>
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
-              statSubtitle="SALES"
-              statTitle="924"
-              statArrow="down"
+              statSubtitle="PORTFOLIO/ACTIVITY LOG"
+              statTitle="20"
+              statArrow="up"
               statPercent="1.10"
               statPercentColor="text-orange-500"
               statDescripiron="Since yesterday"
@@ -43,14 +43,14 @@
           </div>
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
-              statSubtitle="PERFORMANCE"
-              statTitle="49,65%"
+              statSubtitle="SESSIONS ATTENDED"
+              statTitle="99.7%"
               statArrow="up"
               statPercent="12"
               statPercentColor="text-blue-500"
               statDescripiron="Since last month"
-              statIconName="fas fa-percent"
-              statIconColor="bg-blue-500"
+              statIconName="fas fa-book-open"
+              statIconColor="bg-purple-500"
             />
           </div>
         </div>
