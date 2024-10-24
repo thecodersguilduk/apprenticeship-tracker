@@ -6,7 +6,7 @@
       <div class="flex flex-wrap items-center">
         <div class="relative w-full px-4 max-w-full flex-grow flex-1">
           <h3 class="font-semibold text-base text-blueGray-700">
-            Social traffic
+            RAG Rating
           </h3>
         </div>
         <div
@@ -29,12 +29,7 @@
             <th
               class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
             >
-              Referral
-            </th>
-            <th
-              class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-            >
-              Visitors
+              Categories
             </th>
             <th
               class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px"
@@ -46,24 +41,19 @@
             <th
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
             >
-              Facebook
+             Portfolio / Activity Log
             </th>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              1,480
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
               <div class="flex items-center">
-                <span class="mr-2">60%</span>
+                <span class="mr-2">45%</span>
                 <div class="relative w-full">
                   <div
                     class="overflow-hidden h-2 text-xs flex rounded bg-red-200"
                   >
                     <div
-                      style="width: 60%;"
+                      style="width: 45%;"
                       class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
                     ></div>
                   </div>
@@ -75,25 +65,20 @@
             <th
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
             >
-              Facebook
+             KSBs
             </th>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              5,480
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
               <div class="flex items-center">
-                <span class="mr-2">70%</span>
+                <span class="mr-2">68%</span>
                 <div class="relative w-full">
                   <div
-                    class="overflow-hidden h-2 text-xs flex rounded bg-emerald-200"
+                    class="overflow-hidden h-2 text-xs flex rounded bg-red-200"
                   >
                     <div
-                      style="width: 70%;"
-                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500"
+                      style="width: 68%;"
+                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
                     ></div>
                   </div>
                 </div>
@@ -104,83 +89,20 @@
             <th
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
             >
-              Google
+             Session Tasks
             </th>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              4,807
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
               <div class="flex items-center">
-                <span class="mr-2">80%</span>
+                <span class="mr-2">96%</span>
                 <div class="relative w-full">
                   <div
-                    class="overflow-hidden h-2 text-xs flex rounded bg-purple-200"
+                    class="overflow-hidden h-2 text-xs flex rounded bg-red-200"
                   >
                     <div
-                      style="width: 80%;"
-                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-purple-500"
-                    ></div>
-                  </div>
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
-            >
-              Instagram
-            </th>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              3,678
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              <div class="flex items-center">
-                <span class="mr-2">75%</span>
-                <div class="relative w-full">
-                  <div
-                    class="overflow-hidden h-2 text-xs flex rounded bg-lightBlue-200"
-                  >
-                    <div
-                      style="width: 75%;"
-                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-lightBlue-500"
-                    ></div>
-                  </div>
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
-            >
-              twitter
-            </th>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              2,645
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              <div class="flex items-center">
-                <span class="mr-2">30%</span>
-                <div class="relative w-full">
-                  <div
-                    class="overflow-hidden h-2 text-xs flex rounded bg-orange-200"
-                  >
-                    <div
-                      style="width: 30%;"
-                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500"
+                      style="width: 96%;"
+                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
                     ></div>
                   </div>
                 </div>

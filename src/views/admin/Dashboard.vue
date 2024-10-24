@@ -1,5 +1,11 @@
 <template>
   <div>
+    <!-- <ul>
+      <li v-for="item in boardItems" :key="item.id">
+        {{ item.name }}
+      </li>
+    </ul> -->
+
     <div class="flex flex-wrap">
       <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
         <card-line-chart />
@@ -43,10 +49,13 @@ export default {
     const itemId = 5554800185;
 
     // Fetch board data on component mount
-    mondayService.getBoardData(boardId, itemId).then(items => {
-      this.boardItems = items;
+    mondayService.getBoardData(boardId, itemId).then(response => {
+      // Assuming response contains the array of items, map it to boardItems
+      this.boardItems = response.map(item => ({
+        id: item.id,
+        name: item.name,
+      }));
       console.log('Board items loaded:', this.boardItems);
-
     }).catch(err => {
       console.error('Error loading board data:', err);
     });

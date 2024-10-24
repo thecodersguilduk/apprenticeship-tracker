@@ -48,7 +48,6 @@ export default {
       default: "350,897",
     },
     statArrow: {
-      default: "up",
       validator: function (value) {
         // The value must match one of these strings
         return ["up", "down"].indexOf(value) !== -1;
@@ -56,7 +55,6 @@ export default {
     },
     statPercent: {
       type: String,
-      default: "3.48",
     },
     // can be any of the text color utilities
     // from tailwindcss

@@ -8,7 +8,7 @@
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
               statSubtitle="KSBs Progress"
-              statTitle="34"
+              statTitle="34 out of 51"
               statArrow="up"
               statPercent="3.48"
               statPercentColor="text-blue-500"
@@ -20,8 +20,8 @@
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
               statSubtitle="OTJ HOURS LOGGED"
-              statTitle="422"
-              statArrow="down"
+              statTitle="422 hrs"
+              statArrow="up"
               statPercent="3.48"
               statPercentColor="text-red-500"
               statDescripiron="Since last week"
@@ -32,7 +32,7 @@
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
               statSubtitle="PORTFOLIO/ACTIVITY LOG"
-              statTitle="20"
+              statTitle="20 out of 21"
               statArrow="up"
               statPercent="1.10"
               statPercentColor="text-orange-500"
