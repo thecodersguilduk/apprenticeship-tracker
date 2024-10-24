@@ -1,5 +1,7 @@
 import { createApp } from "vue";
 import { createWebHistory, createRouter } from "vue-router";
+import { auth } from "@/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 // styles
 
@@ -95,9 +97,24 @@ const routes = [
   { path: "/:pathMatch(.*)*", redirect: "/" },
 ];
 
-const router = createRouter({
+export const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  onAuthStateChanged(auth, (user) => {
+    const isAuthenticated = !!user; // Check if the user is authenticated
+
+    // If the route does not start with /auth and user is not authenticated, redirect to login
+    if (to.path.startsWith("/auth")) {
+      next(); // Allow navigation to /auth routes (login, register)
+    } else if (!isAuthenticated) {
+      next("/auth/login"); // Redirect unauthenticated users to login page
+    } else {
+      next(); // Allow authenticated users to proceed
+    }
+  });
 });
 
 createApp(App).use(router).mount("#app");
