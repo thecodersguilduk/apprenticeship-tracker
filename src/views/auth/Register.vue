@@ -61,11 +61,12 @@
                   <input
                     id="customCheckLogin"
                     type="checkbox"
-                    class="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
+                    class="form-checkbox rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
+                    required
                   />
                   <span class="ml-2 text-sm font-semibold text-blueGray-600">
                     I agree with the
-                    <a href="javascript:void(0)" class="text-emerald-500">
+                    <a href="https://thecodersguild.org.uk/privacy" class="text-blue-200">
                       Privacy Policy
                     </a>
                   </span>
@@ -74,7 +75,7 @@
 
               <div class="text-center mt-6">
                 <button
-                  class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                  class="bg-blue-200 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                 type="submit"
                 >
                   Create Account
@@ -93,6 +94,7 @@
 import { ref } from "vue";
 import { auth, createUserWithEmailAndPassword, db, setDoc, doc } from "@/firebase";
 import { useRouter } from "vue-router";
+import registrationService from "../../../services/registrationService";
 
 export default {
   name: "Register",
@@ -105,20 +107,37 @@ export default {
 
     const register = async () => {
       try {
+
+        //to do - check the apprenticeid matches the email stored for that id. ie. if I log in as ash, will i get ash's data back
+        const isRegistrationValid = await registrationService(email.value, apprenticeId.value);
+        if(!isRegistrationValid) {
+          throw new Error("Incorrect apprentice ID or email.")
+        }
+
         const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
         const userId = userCredential.user.uid;
+
+        console.log("User created with ID:", userId);
+
+        if (!apprenticeId.value) {
+          throw new Error("Apprentice ID is required");
+        }
+
+        console.log("Saving apprentice ID to Firestore:", apprenticeId.value);
+
+        
+
 
         // Store Monday.com ID in Firestore with the user ID
         await setDoc(doc(db, "users", userId), {
           email: email.value,
-          mondayId: apprenticeId.value,
+          apprenticeId: apprenticeId.value,
         });
 
         
 
         router.push("/admin/dashboard");
       } catch (err) {
-        console.error(err.code);
         
         error.value = err.message;
       }

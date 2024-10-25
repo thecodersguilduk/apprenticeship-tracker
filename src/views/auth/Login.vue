@@ -3,7 +3,7 @@
     <div class="flex content-center items-center justify-center h-full">
       <div class="w-full lg:w-4/12 px-4">
         <div
-          class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0"
+          class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blue-200 border-0"
         >
           <!-- <div class="rounded-t mb-0 px-6 py-6">
             <div class="text-center mb-3">
@@ -33,7 +33,7 @@
             <!-- <div class="text-blueGray-400 text-center mb-3 font-bold">
               <small>Or sign in with credentials</small>
             </div> -->
-            <form @submit.prevent="login" class="py-10">
+            <form @submit.prevent="submit" class="py-10">
               <div class="relative w-full mb-3">
                 <label
                   class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -63,6 +63,24 @@
                   placeholder="Password"
                 />
               </div>
+
+              <div class="relative w-full mb-3">
+                <label
+                  class="block uppercase text-blueGray-600 text-xs font-bold mb-2 sr-only"
+                  htmlFor="grid-password"
+                >
+                  Login
+                </label>
+                <input
+                  type="submit"
+                  class="border-0 px-3 py-3 text-white bg-blue-200 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  
+                />
+              </div>
+
+              <div class="relative w-full mb-3" v-if="error" >
+                <p>{{error}}</p>
+              </div>
               <!-- <div>
                 <label class="inline-flex items-center cursor-pointer">
                   <input
@@ -91,12 +109,12 @@
         </div>
         <div class="flex flex-wrap mt-6 relative">
           <div class="w-1/2">
-            <a href="javascript:void(0)" class="text-blueGray-200">
+            <a href="javascript:void(0)" class="text-blue-200">
               <small>Forgot password?</small>
             </a>
           </div>
           <div class="w-1/2 text-right">
-            <router-link to="/auth/register" class="text-blueGray-200">
+            <router-link to="/auth/register" class="text-blue-200">
               <small>Create new account</small>
             </router-link>
           </div>
@@ -120,47 +138,53 @@ export default {
     const error = ref("");
     const router = useRouter();
 
-    const login = async () => {
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
-    const userId = userCredential.user.uid;
-
-    // Fetch the Monday.com ID from Firestore
-    const userDoc = await getDoc(doc(db, "users", userId));
-    if (userDoc.exists()) {
-      const userData = userDoc.data();
-      const mondayId = userData.mondayId;
-
-      // Make API request to Monday.com to verify the ID
-      const response = await mondayService.getBoardData(mondayId);
-      if (response) {
-        router.push("/admin/dashboard");
-      } else {
-        error.value = "Invalid Monday.com ID. Please contact support.";
-      }
-    }
-  } catch (err) {
-    error.value = "Failed to login. Please check your credentials.";
-  }
-};
-
-
-    // const loginWithGoogle = async () => {
-    //   try {
-    //     await signInWithPopup(auth, provider);
-    //     router.push("/admin/dashboard");
-    //   } catch (err) {
-    //     error.value = "Failed to login with Google.";
-    //   }
-    // };
+    
 
     return {
       email,
       password,
       error,
-      login
+      router
     };
   },
-};
+  methods: {
+    submit: async function () {
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, this.email, this.password);
+        console.log("Authenticated User:", userCredential.user);
+        const userId = userCredential.user.uid;
+
+        // Fetch the Monday.com ID from Firestore
+        const userDoc = await getDoc(doc(db, "users", userId));
+        if (userDoc.exists()) {
+          console.log("User document found:", userDoc.data());
+
+          const userData = userDoc.data();
+          const apprenticeId = userData.apprenticeId;
+
+          console.log(apprenticeId);
+
+          if (!apprenticeId) {
+            throw new Error("Apprentice ID missing in Firestore document");
+          }
+
+          // Make API request to Monday.com to verify the ID
+          const response = await mondayService.getBoardData(apprenticeId);
+          if (response) {
+            this.router.push("/admin/dashboard");
+          } else {
+            this.error = "Invalid Monday.com ID. Please contact support.";
+          }
+        } else {
+          console.log("No document found for this user in Firestore.");
+          this.error = "No record found for the user. Please contact support.";
+        }
+      } catch (err) {
+        this.error = err.message;
+      }
+    }
+  }
+    
+  };
 </script>
 
