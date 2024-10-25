@@ -5,48 +5,8 @@
         <div
           class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0"
         >
-          <div class="rounded-t mb-0 px-6 py-6">
-            <div class="text-center mb-3">
-              <h6 class="text-blueGray-500 text-sm font-bold">
-                Sign up with
-              </h6>
-            </div>
-            <div class="btn-wrapper text-center">
-              <button
-                class="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                type="button"
-              >
-                <img alt="..." class="w-5 mr-1" :src="github" />
-                Github
-              </button>
-              <button
-                class="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                type="button"
-              >
-                <img alt="..." class="w-5 mr-1" :src="google" />
-                Google
-              </button>
-            </div>
-            <hr class="mt-6 border-b-1 border-blueGray-300" />
-          </div>
           <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-            <div class="text-blueGray-400 text-center mb-3 font-bold">
-              <small>Or sign up with credentials</small>
-            </div>
-            <form>
-              <div class="relative w-full mb-3">
-                <label
-                  class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                  htmlFor="grid-password"
-                >
-                  Name
-                </label>
-                <input
-                  type="email"
-                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                  placeholder="Name"
-                />
-              </div>
+            <form class="py-10" @submit.prevent="register">
 
               <div class="relative w-full mb-3">
                 <label
@@ -56,9 +16,11 @@
                   Email
                 </label>
                 <input
+                  v-model="email"
                   type="email"
                   class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   placeholder="Email"
+                  required
                 />
               </div>
 
@@ -70,9 +32,27 @@
                   Password
                 </label>
                 <input
+                  v-model="password"
                   type="password"
                   class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   placeholder="Password"
+                  required
+                />
+              </div>
+
+              <div class="relative w-full mb-3">
+                <label
+                  class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                  htmlFor="grid-apprenticeId"
+                >
+                ID Number - this will be in your joining email
+                </label>
+                <input
+                  v-model="apprenticeId"
+                  type="text"
+                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  placeholder="Apprentice ID"
+                  required
                 />
               </div>
 
@@ -81,11 +61,12 @@
                   <input
                     id="customCheckLogin"
                     type="checkbox"
-                    class="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
+                    class="form-checkbox rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
+                    required
                   />
                   <span class="ml-2 text-sm font-semibold text-blueGray-600">
                     I agree with the
-                    <a href="javascript:void(0)" class="text-emerald-500">
+                    <a href="https://thecodersguild.org.uk/privacy" class="text-blue-200">
                       Privacy Policy
                     </a>
                   </span>
@@ -94,12 +75,14 @@
 
               <div class="text-center mt-6">
                 <button
-                  class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                  type="button"
+                  class="bg-blue-200 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                type="submit"
                 >
                   Create Account
                 </button>
               </div>
+
+              <div class="mt-6 text-red-500" v-if="error">{{ error }}</div>
             </form>
           </div>
         </div>
@@ -108,14 +91,64 @@
   </div>
 </template>
 <script>
-import github from "@/assets/img/github.svg";
-import google from "@/assets/img/google.svg";
+import { ref } from "vue";
+import { auth, createUserWithEmailAndPassword, db, setDoc, doc } from "@/firebase";
+import { useRouter } from "vue-router";
+import registrationService from "../../../services/registrationService";
 
 export default {
-  data() {
+  name: "Register",
+  setup() {
+    const email = ref("");
+    const password = ref("");
+    const apprenticeId = ref("");
+    const error = ref("");
+    const router = useRouter();
+
+    const register = async () => {
+      try {
+
+        //to do - check the apprenticeid matches the email stored for that id. ie. if I log in as ash, will i get ash's data back
+        const isRegistrationValid = await registrationService(email.value, apprenticeId.value);
+        if(!isRegistrationValid) {
+          throw new Error("Incorrect apprentice ID or email.")
+        }
+
+        const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
+        const userId = userCredential.user.uid;
+
+        console.log("User created with ID:", userId);
+
+        if (!apprenticeId.value) {
+          throw new Error("Apprentice ID is required");
+        }
+
+        console.log("Saving apprentice ID to Firestore:", apprenticeId.value);
+
+        
+
+
+        // Store Monday.com ID in Firestore with the user ID
+        await setDoc(doc(db, "users", userId), {
+          email: email.value,
+          apprenticeId: apprenticeId.value,
+        });
+
+        
+
+        router.push("/admin/dashboard");
+      } catch (err) {
+        
+        error.value = err.message;
+      }
+    };
+
     return {
-      github,
-      google,
+      email,
+      password,
+      apprenticeId,
+      error,
+      register,
     };
   },
 };

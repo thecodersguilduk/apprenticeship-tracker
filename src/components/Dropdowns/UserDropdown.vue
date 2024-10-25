@@ -1,11 +1,7 @@
 <template>
   <div class="flex text-black gap-2 items-center">
     Welcome  
-    <ul>
-      <li v-for="item in boardItems" :key="item.id" class="ml-1">
-         {{ item.name }}
-      </li>
-    </ul>
+    
     <a
       class="text-blueGray-500 block pl-4"
       href="#pablo"
@@ -33,6 +29,7 @@
       }"
     >
       <a
+        @click="logout"
         href="javascript:void(0);"
         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
       >
@@ -44,12 +41,12 @@
 
 <script>
 import { createPopper } from "@popperjs/core";
-import mondayService from '@/../services/mondayService';
-
-
+import { signOut, auth } from "@/firebase";
 import image from "@/assets/img/team-1-800x800.jpg";
+import { router } from "@/main.js";
 
 export default {
+
   data() {
     return {
       dropdownPopoverShow: false,
@@ -57,24 +54,11 @@ export default {
       boardItems: [],
     };
   },
-  mounted() {
-    // Replace with your Monday.com board ID
-    const boardId = 4662225022;
-    const itemId = 5554800185;
-
-    // Fetch board data on component mount
-    mondayService.getBoardData(boardId, itemId).then(response => {
-      // Assuming response contains the array of items, map it to boardItems
-      this.boardItems = response.map(item => ({
-        id: item.id,
-        name: item.name,
-      }));
-      console.log('Board items loaded:', this.boardItems);
-    }).catch(err => {
-      console.error('Error loading board data:', err);
-    });
-  },
   methods: {
+    logout: async function (){
+      await signOut(auth);
+      router.push("/auth/login");
+    },
     toggleDropdown: function (event) {
       event.preventDefault();
       if (this.dropdownPopoverShow) {

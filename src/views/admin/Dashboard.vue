@@ -67,11 +67,10 @@ export default {
   }
 
   // Replace with your Monday.com board ID
-  const boardId = 4662225022;
-  const itemId = 5554800185; // This should be dynamic based on the user's monday.com id
+  const apprenticeId = 5554800185; // This should be dynamic based on the user's monday.com id
 
   // Fetch board data on component mount
-  mondayService.getBoardData(boardId, itemId).then(response => {
+  mondayService.getBoardData(apprenticeId).then(response => {
     console.log(response);
 
     // Transform the response data

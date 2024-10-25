@@ -1,18 +1,16 @@
 // src/services/mondayService.js
 import axios from 'axios';
-
-const API_TOKEN = process.env.VUE_APP_MONDAY_API_TOKEN;  // Replace with your API token
-const API_URL = 'https://api.monday.com/v2';
+import { API_TOKEN, API_URL, TRACKER_BOARD_ID } from './mondayConfig';
 
 export default {
   // Function to get data from monday.com
-  getBoardData(boardId, itemId) {
+  getBoardData(apprenticeId) {
     const query = `
     query {
-      boards (ids: [${boardId}]) {
+      boards (ids: [${TRACKER_BOARD_ID}]) {
         id
         name
-        items_page (query_params: { ids: [${itemId}] }){
+        items_page (query_params: { ids: [${apprenticeId}] }){
            items {
             id
             name
