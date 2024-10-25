@@ -38,6 +38,24 @@ export default {
                     }
                     date
                 }
+                ... on StatusValue {
+                  column {
+                    title
+                  }
+                	text
+                }
+                ... on TextValue {
+                  column {
+                    title
+                  }
+                  text
+                }
+                ... on FormulaValue {
+                  column {
+                    title
+                  }
+                  text
+                }
             }
            } 
         }
