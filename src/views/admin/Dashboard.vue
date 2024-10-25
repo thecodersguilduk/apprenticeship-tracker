@@ -43,6 +43,8 @@ export default {
   mounted() {
   function transformItemData(item) {
     return {
+      id: item.id,
+      name: item.name,
       ...(Array.isArray(item.column_values) ? item.column_values.reduce((acc, column) => {
         if (column && column.column && column.column.title) {
           const title = column.column.title;
