@@ -1,7 +1,7 @@
 // src/services/mondayService.js
 import axios from 'axios';
 
-const API_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjE2ODEyNjUxMiwiYWFpIjoxMSwidWlkIjoyOTY3ODUwMiwiaWFkIjoiMjAyMi0wNi0zMFQwODo0MDozOS4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MTE4NDM0ODEsInJnbiI6InVzZTEifQ.MqL8cL1E5ek1cdrJrDB7biLuNoDnGQOf82SJ-61BEuw';  // Replace with your API token
+const API_TOKEN = process.env.VUE_APP_MONDAY_API_TOKEN;  // Replace with your API token
 const API_URL = 'https://api.monday.com/v2';
 
 export default {
@@ -39,6 +39,24 @@ export default {
                       title
                     }
                     date
+                }
+                ... on StatusValue {
+                  column {
+                    title
+                  }
+                	text
+                }
+                ... on TextValue {
+                  column {
+                    title
+                  }
+                  text
+                }
+                ... on FormulaValue {
+                  column {
+                    title
+                  }
+                  text
                 }
             }
            } 
