@@ -73,7 +73,7 @@
                 </label>
                 <input
                   type="submit"
-                  class="border-0 px-3 py-3 text-white bg-blue-200 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  class="border-0 px-3 py-3 text-white font-bold bg-red-700 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   
                 />
               </div>
@@ -104,7 +104,7 @@
                 </button>
               </div> -->
             </form>
-            <p>New to our tracker? Register <a href="/auth/register">here</a></p>
+            <p>New to our tracker? Register <a href="/auth/register" class="font-bold underline">here</a></p>
           </div>
         </div>
         <div class="flex flex-wrap mt-6 relative">
