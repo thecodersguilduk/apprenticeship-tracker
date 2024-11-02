@@ -24,7 +24,7 @@ import CardLineChart from "@/components/Cards/CardLineChart.vue";
 import CardBarChart from "@/components/Cards/CardBarChart.vue";
 import CardPageVisits from "@/components/Cards/CardPageVisits.vue";
 import CardSocialTraffic from "@/components/Cards/CardSocialTraffic.vue";
-
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 
 export default {
@@ -38,50 +38,69 @@ export default {
   data() {
     return {
       boardItems: [],
+      apprenticeId: null,
+      userEmail: null
     };
   },
   mounted() {
-  function transformItemData(item) {
-    return {
-      id: item.id,
-      name: item.name,
-      ...(Array.isArray(item.column_values) ? item.column_values.reduce((acc, column) => {
-        if (column && column.column && column.column.title) {
-          const title = column.column.title;
-          let value = "";
-
-          // Check if it has values (like labels) or dates
-          if (column.values && column.values.length > 0) {
-            value = column.values[0].label; // Use the first label
-          } else if (column.date) {
-            value = column.date;
-          } else if (column.text) {
-            value = column.text
+    this.fetchApprenticeId();
+  },
+  methods: {
+    async fetchApprenticeId() {
+      const auth = getAuth();
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          try {
+            const apprenticeId = await mondayService.getApprenticeIdByEmail(user.email);
+            if (apprenticeId) {
+              this.apprenticeId = apprenticeId;
+              this.loadBoardData();
+            } else {
+              console.error("Apprentice ID not found for the logged-in user.");
+            }
+          } catch (error) {
+            console.error("Error fetching apprentice ID:", error);
           }
-
-          acc[title] = value; // Add the title as key, value as value
+        } else {
+          console.log("User not logged in");
         }
-        return acc;
-      }, {}) : {}) // If column_values is undefined or not an array, use an empty object
-    };
-  }
+      });
+    },
+    transformItemData(item) {
+      return {
+        id: item.id,
+        name: item.name,
+        ...(Array.isArray(item.column_values) ? item.column_values.reduce((acc, column) => {
+          if (column && column.column && column.column.title) {
+            const title = column.column.title;
+            let value = "";
+            if (column.values && column.values.length > 0) {
+              value = column.values[0].label;
+            } else if (column.date) {
+              value = column.date;
+            } else if (column.text) {
+              value = column.text;
+            }
 
-  // Replace with your Monday.com board ID
-  const apprenticeId = 5554800185; // This should be dynamic based on the user's monday.com id
+            acc[title] = value;
+          }
+          return acc;
+        }, {}) : {})
+      };
+    },
+    loadBoardData() {
+      if (!this.apprenticeId) return;
 
-  // Fetch board data on component mount
-  mondayService.getBoardData(apprenticeId).then(response => {
-    console.log(response);
-
-    // Transform the response data
-    this.boardItems = transformItemData(response[0]);
-
-    console.log('Board items loaded:', this.boardItems);
-  }).catch(err => {
-    console.error('Error loading board data:', err);
-  });
-}
+      mondayService.getBoardData(this.apprenticeId)
+        .then(response => {
+          console.log(response);
+          this.boardItems = this.transformItemData(response[0]);
+        })
+        .catch(err => {
+          console.error('Error loading board data:', err);
+        });
+    },
+  },
 
 };
-
 </script>
