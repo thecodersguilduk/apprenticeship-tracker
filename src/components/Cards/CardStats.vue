@@ -45,7 +45,7 @@ export default {
     },
     statTitle: {
       type: String,
-      default: "350,897",
+      default: "0",
     },
     statArrow: {
       validator: function (value) {

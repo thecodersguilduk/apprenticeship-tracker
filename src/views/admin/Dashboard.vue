@@ -19,12 +19,13 @@
   </div>
 </template>
 <script>
-import mondayService from '@/../services/mondayService';
+// import mondayService from '@/../services/mondayService';
 import CardLineChart from "@/components/Cards/CardLineChart.vue";
 import CardBarChart from "@/components/Cards/CardBarChart.vue";
 import CardPageVisits from "@/components/Cards/CardPageVisits.vue";
 import CardSocialTraffic from "@/components/Cards/CardSocialTraffic.vue";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useBoardStore } from '../../store/useBoardStore';
 
 
 export default {
@@ -35,72 +36,19 @@ export default {
     CardPageVisits,
     CardSocialTraffic,
   },
-  data() {
-    return {
-      boardItems: [],
-      apprenticeId: null,
-      userEmail: null
-    };
-  },
-  mounted() {
-    this.fetchApprenticeId();
-  },
-  methods: {
-    async fetchApprenticeId() {
-      const auth = getAuth();
-      onAuthStateChanged(auth, async (user) => {
-        if (user) {
-          try {
-            const apprenticeId = await mondayService.getApprenticeIdByEmail(user.email);
-            if (apprenticeId) {
-              this.apprenticeId = apprenticeId;
-              this.loadBoardData();
-            } else {
-              console.error("Apprentice ID not found for the logged-in user.");
-            }
-          } catch (error) {
-            console.error("Error fetching apprentice ID:", error);
-          }
-        } else {
-          console.log("User not logged in");
-        }
-      });
-    },
-    transformItemData(item) {
-      return {
-        id: item.id,
-        name: item.name,
-        ...(Array.isArray(item.column_values) ? item.column_values.reduce((acc, column) => {
-          if (column && column.column && column.column.title) {
-            const title = column.column.title;
-            let value = "";
-            if (column.values && column.values.length > 0) {
-              value = column.values[0].label;
-            } else if (column.date) {
-              value = column.date;
-            } else if (column.text) {
-              value = column.text;
-            }
+  setup() {
+    const boardStore = useBoardStore();
 
-            acc[title] = value;
-          }
-          return acc;
-        }, {}) : {})
-      };
-    },
-    loadBoardData() {
-      if (!this.apprenticeId) return;
+    // Fetch apprentice ID on component mount
+    onAuthStateChanged(getAuth(), (user) => {
+      if (user) {
+        boardStore.fetchApprenticeId(user.email);
+      } else {
+        console.log("User not logged in");
+      }
+    });
 
-      mondayService.getBoardData(this.apprenticeId)
-        .then(response => {
-          console.log(response);
-          this.boardItems = this.transformItemData(response[0]);
-        })
-        .catch(err => {
-          console.error('Error loading board data:', err);
-        });
-    },
+    return { boardStore };
   },
-
 };
 </script>

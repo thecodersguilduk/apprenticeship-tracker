@@ -102,7 +102,7 @@ export default {
       }
     } while (hasMoreItems);
   
-    // Log all items collected for debugging
+    // // Log all items collected for debugging
     // console.log('All retrieved items:', allItems);
   
     // Search through all collected items for the matching email
