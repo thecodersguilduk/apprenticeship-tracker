@@ -1,6 +1,6 @@
 <template>
   <div class="flex text-black gap-2 items-center">
-    Welcome  
+    Welcome  {{ apprenticeName }}
     
     <a
       class="text-blueGray-500 block pl-4"
@@ -44,7 +44,8 @@ import { createPopper } from "@popperjs/core";
 import { signOut, auth } from "@/firebase";
 import image from "@/assets/img/team-1-800x800.jpg";
 import { router } from "@/main.js";
-
+import { useBoardStore } from "../../store/useBoardStore";
+import { computed } from "vue";
 export default {
 
   data() {
@@ -53,6 +54,16 @@ export default {
       image: image,
       boardItems: [],
     };
+  },
+  setup(){
+    const boardStore = useBoardStore();
+        // Computed property to get apprentice's name from the store
+        const apprenticeName = computed(() => boardStore.boardItems.name || "Loading...");
+
+        return{
+          apprenticeName
+        }
+
   },
   methods: {
     logout: async function (){
