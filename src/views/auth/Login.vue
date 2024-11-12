@@ -1,134 +1,129 @@
+
 <template>
-  <div class="container mx-auto px-4 h-full">
-    <div class="flex content-center items-center justify-center h-full">
-      <div class="w-full lg:w-4/12 px-4">
-        <div
-          class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blue-200 border-0"
-        >
-          <!-- <div class="rounded-t mb-0 px-6 py-6">
-            <div class="text-center mb-3">
-              <h6 class="text-blueGray-500 text-sm font-bold">
-                Sign in with
-              </h6>
-            </div>
-            <div class="btn-wrapper text-center">
-              <button
-                class="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                type="button"
-              >
-                <img alt="..." class="w-5 mr-1" :src="github" />
-                Github
-              </button>
-              <button
-                class="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                type="button"
-              >
-                <img alt="..." class="w-5 mr-1" :src="google" />
-                Google
-              </button>
-            </div>
-            <hr class="mt-6 border-b-1 border-blueGray-300" />
-          </div> -->
-          <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-            <!-- <div class="text-blueGray-400 text-center mb-3 font-bold">
-              <small>Or sign in with credentials</small>
-            </div> -->
-            <form @submit.prevent="submit" class="py-10">
-              <div class="relative w-full mb-3">
-                <label
-                  class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                  htmlFor="grid-password"
-                >
-                  Email
-                </label>
-                <input
-                  v-model="email"
-                  type="email"
-                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                  placeholder="Email"
-                />
-              </div>
 
-              <div class="relative w-full mb-3">
-                <label
-                  class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                  htmlFor="grid-password"
-                >
-                  Password
-                </label>
-                <input
-                  v-model="password"
-                  type="password"
-                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                  placeholder="Password"
-                />
-              </div>
-
-              <div class="relative w-full mb-3">
-                <label
-                  class="block uppercase text-blueGray-600 text-xs font-bold mb-2 sr-only"
-                  htmlFor="grid-password"
-                >
-                  Login
-                </label>
-                <input
-                  type="submit"
-                  class="border-0 px-3 py-3 text-white font-bold bg-red-700 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                  
-                />
-              </div>
-
-              <div class="relative w-full mb-3" v-if="error" >
-                <p>{{error}}</p>
-              </div>
-              <!-- <div>
-                <label class="inline-flex items-center cursor-pointer">
-                  <input
-                    id="customCheckLogin"
-                    type="checkbox"
-                    class="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
-                  />
-                  <span class="ml-2 text-sm font-semibold text-blueGray-600">
-                    Remember me
-                  </span>
-                </label>
-              </div> -->
-
-              <!-- <div class="text-center mt-6">
-                <button
-                  @click="loginWithGoogle"
-                  class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                  type="button"
-                >
-                  Sign In
-                </button>
-              </div> -->
-            </form>
-            <p>New to our tracker? Register <a href="/auth/register" class="font-bold underline">here</a></p>
-          </div>
+  <div class="flex min-h-full flex-1">
+    <div class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
+      <div class="mx-auto w-full max-w-sm lg:w-96">
+        <div>
+          <img class="h-10 w-auto" :src="logo" alt="Apprenticeship Tracker App from The Coders Guild" />
+          <h2 class="mt-8 text-2xl/9 font-bold tracking-tight text-gray-900">Sign in to your account</h2>
         </div>
-        <div class="flex flex-wrap mt-6 relative">
-          <div class="w-1/2">
-            <a href="javascript:void(0)" class="text-blue-200">
-              <small>Forgot password?</small>
-            </a>
-          </div>
-          <div class="w-1/2 text-right">
-            <router-link to="/auth/register" class="text-blue-200">
-              <small>Create new account</small>
-            </router-link>
+
+        <div class="mt-10">
+          <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+  <form @submit.prevent="submit" class="py-10">
+    <div class="relative w-full mb-3">
+      <label
+        class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+        htmlFor="grid-password"
+      >
+        Email
+      </label>
+      <input
+        v-model="email"
+        type="email"
+        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+        placeholder="Email"
+      />
+    </div>
+
+    <div class="relative w-full mb-3">
+      <label
+        class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+        htmlFor="grid-password"
+      >
+        Password
+      </label>
+      <input
+        v-model="password"
+        type="password"
+        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+        placeholder="Password"
+      />
+    </div>
+
+    <div class="relative w-full mb-3">
+      <label
+        class="block uppercase text-blueGray-600 text-xs font-bold mb-2 sr-only"
+        htmlFor="grid-password"
+      >
+        Login
+      </label>
+      <input
+        type="submit"
+        class="border-0 px-3 py-3 text-white bg-blue-200 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+        
+      />
+    </div>
+
+    <div class="relative w-full mb-3" v-if="error" >
+      <p>{{error}}</p>
+    </div>
+    <!-- <div>
+      <label class="inline-flex items-center cursor-pointer">
+        <input
+          id="customCheckLogin"
+          type="checkbox"
+          class="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
+        />
+        <span class="ml-2 text-sm font-semibold text-blueGray-600">
+          Remember me
+        </span>
+      </label>
+    </div> -->
+
+    <!-- <div class="text-center mt-6">
+      <button
+        @click="loginWithGoogle"
+        class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+        type="button"
+      >
+        Sign In
+      </button>
+    </div> -->
+  </form>
+  <p>New to our tracker? Register <a href="/auth/register">here</a></p>
+</div>
+
+          <div class="mt-10">
+            <div class="relative">
+              <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                <div class="w-full border-t border-gray-200" />
+              </div>
+              <div class="relative flex justify-center text-sm/6 font-medium">
+                <span class="bg-white px-6 text-gray-900">Staff sign in here!</span>
+              </div>
+            </div>
+
+            <div class="mt-6 grid grid-cols-2 gap-4">
+              <a href="#" class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent">
+                <svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M12.0003 4.75C13.7703 4.75 15.3553 5.36002 16.6053 6.54998L20.0303 3.125C17.9502 1.19 15.2353 0 12.0003 0C7.31028 0 3.25527 2.69 1.28027 6.60998L5.27028 9.70498C6.21525 6.86002 8.87028 4.75 12.0003 4.75Z" fill="#EA4335" />
+                  <path d="M23.49 12.275C23.49 11.49 23.415 10.73 23.3 10H12V14.51H18.47C18.18 15.99 17.34 17.25 16.08 18.1L19.945 21.1C22.2 19.01 23.49 15.92 23.49 12.275Z" fill="#4285F4" />
+                  <path d="M5.26498 14.2949C5.02498 13.5699 4.88501 12.7999 4.88501 11.9999C4.88501 11.1999 5.01998 10.4299 5.26498 9.7049L1.275 6.60986C0.46 8.22986 0 10.0599 0 11.9999C0 13.9399 0.46 15.7699 1.28 17.3899L5.26498 14.2949Z" fill="#FBBC05" />
+                  <path d="M12.0004 24.0001C15.2404 24.0001 17.9654 22.935 19.9454 21.095L16.0804 18.095C15.0054 18.82 13.6204 19.245 12.0004 19.245C8.8704 19.245 6.21537 17.135 5.2654 14.29L1.27539 17.385C3.25539 21.31 7.3104 24.0001 12.0004 24.0001Z" fill="#34A853" />
+                </svg>
+                <span class="text-sm/6 font-semibold">Google</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="relative hidden w-0 flex-1 lg:block">
+      <img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1496917756835-20cb06e75b4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80" alt="" />
     </div>
   </div>
 </template>
 
 <script>
+import logo from '@/assets/img/logo/TCG_Square_Logo_Blue.svg';
 import { ref } from "vue";
 import { auth, signInWithEmailAndPassword, getDoc, db, doc } from "@/firebase";
 import { useRouter } from "vue-router";
 import mondayService from "../../../services/mondayService";
+import { useBoardStore } from '@/store/useBoardStore';
+import { transformLearnerData } from "@/helpers/transformLearnerData";
 
 export default {
   name: "Login",
@@ -141,6 +136,7 @@ export default {
     
 
     return {
+      logo,
       email,
       password,
       error,
@@ -151,18 +147,18 @@ export default {
     submit: async function () {
       try {
         const userCredential = await signInWithEmailAndPassword(auth, this.email, this.password);
-        console.log("Authenticated User:", userCredential.user);
+        //console.log("Authenticated User:", userCredential.user);
         const userId = userCredential.user.uid;
 
         // Fetch the Monday.com ID from Firestore
         const userDoc = await getDoc(doc(db, "users", userId));
         if (userDoc.exists()) {
-          console.log("User document found:", userDoc.data());
+          //console.log("User document found:", userDoc.data());
 
           const userData = userDoc.data();
           const apprenticeId = userData.apprenticeId;
 
-          console.log(apprenticeId);
+          // console.log(apprenticeId);
 
           if (!apprenticeId) {
             throw new Error("Apprentice ID missing in Firestore document");
@@ -170,6 +166,10 @@ export default {
 
           // Make API request to Monday.com to verify the ID
           const response = await mondayService.getBoardData(apprenticeId);
+          const learnerData = transformLearnerData(response[0]);
+          const boardStore = useBoardStore();
+          boardStore.setApprenticeData(learnerData);
+          
           if (response) {
             this.router.push("/admin/dashboard");
           } else {
@@ -186,5 +186,5 @@ export default {
   }
     
   };
-</script>
 
+</script>

@@ -24,8 +24,8 @@ import CardLineChart from "@/components/Cards/CardLineChart.vue";
 import CardBarChart from "@/components/Cards/CardBarChart.vue";
 import CardPageVisits from "@/components/Cards/CardPageVisits.vue";
 import CardSocialTraffic from "@/components/Cards/CardSocialTraffic.vue";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useBoardStore } from '../../store/useBoardStore';
+import { useBoardStore  } from "../../store/useBoardStore";
+import { storeToRefs } from 'pinia';
 
 
 export default {
@@ -36,19 +36,14 @@ export default {
     CardPageVisits,
     CardSocialTraffic,
   },
+
   setup() {
     const boardStore = useBoardStore();
+    const { apprenticeData } = storeToRefs(boardStore);
 
-    // Fetch apprentice ID on component mount
-    onAuthStateChanged(getAuth(), (user) => {
-      if (user) {
-        boardStore.fetchApprenticeId(user.email);
-      } else {
-        console.log("User not logged in");
-      }
-    });
+    console.log(apprenticeData);
 
-    return { boardStore };
+    return { apprenticeData };
   },
 };
 </script>

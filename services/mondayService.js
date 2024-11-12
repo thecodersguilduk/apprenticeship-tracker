@@ -32,6 +32,8 @@ export default {
       throw error;
     }
   },
+
+
   // Function to get the apprentice ID from Monday.com based on email
   async getApprenticeIdByEmail(email) {
     const allItems = []; // Array to hold all items
@@ -118,6 +120,8 @@ export default {
       return null;
     }
   },
+
+  
 // Function to get data from monday.com
   async getBoardData(apprenticeId) {
     const query = `
