@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-blueGray-700"
+    class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-black"
   >
     <div class="rounded-t mb-0 px-4 py-3 bg-transparent">
       <div class="flex flex-wrap items-center">
@@ -43,8 +43,8 @@ export default {
           datasets: [
             {
               label: new Date().getFullYear(),
-              backgroundColor: "#4c51bf",
-              borderColor: "#4c51bf",
+              backgroundColor: "#2574a9",
+              borderColor: "#2574a9",
               data: [65, 78, 66, 44, 56, 67, 75],
               fill: false,
             },

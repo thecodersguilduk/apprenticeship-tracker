@@ -41,8 +41,8 @@ export default {
           datasets: [
             {
               label: new Date().getFullYear(),
-              backgroundColor: "#ed64a6",
-              borderColor: "#ed64a6",
+              backgroundColor: "#2574a9",
+              borderColor: "#2574a9",
               data: [30, 78, 56, 34, 100, 45, 13],
               fill: false,
               barThickness: 8,

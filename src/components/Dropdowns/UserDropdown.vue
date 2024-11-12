@@ -1,6 +1,6 @@
 <template>
   <div class="flex text-black gap-2 items-center">
-    Welcome  {{ apprenticeName }}
+    {{ apprenticeName }}
     
     <a
       class="text-blueGray-500 block pl-4"
