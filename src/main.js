@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import { createPinia } from 'pinia';
+import pinia from "./store/pinia";
 import { createWebHistory, createRouter } from "vue-router";
 import { auth } from "@/firebase";
 import { onAuthStateChanged } from "firebase/auth";
@@ -119,7 +119,6 @@ router.beforeEach((to, from, next) => {
 });
 
 const app = createApp(App);
-const pinia = createPinia();
 
 app.use(pinia);
 app.use(router);

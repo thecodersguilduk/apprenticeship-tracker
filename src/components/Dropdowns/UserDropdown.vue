@@ -1,12 +1,12 @@
 <template>
   <div class="flex text-black gap-2 items-center">
-    Welcome  {{ apprenticeName }}
+    Welcome {{ apprenticeData?.name }}
     
     <a
       class="text-blueGray-500 block pl-4"
       href="#pablo"
       ref="btnDropdownRef"
-      v-on:click="toggleDropdown($event)"
+      @click="toggleDropdown"
     >
       <div class="items-center flex">
         <span
@@ -23,7 +23,7 @@
     <div
       ref="popoverDropdownRef"
       class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
-      v-bind:class="{
+      :class="{
         hidden: !dropdownPopoverShow,
         block: dropdownPopoverShow,
       }"
@@ -40,47 +40,50 @@
 </template>
 
 <script>
+import { ref } from 'vue';
 import { createPopper } from "@popperjs/core";
 import { signOut, auth } from "@/firebase";
 import image from "@/assets/img/team-1-800x800.jpg";
 import { router } from "@/main.js";
 import { useBoardStore } from "../../store/useBoardStore";
-import { computed } from "vue";
+import { storeToRefs } from 'pinia';
+
 export default {
-
-  data() {
-    return {
-      dropdownPopoverShow: false,
-      image: image,
-      boardItems: [],
-    };
-  },
-  setup(){
+  setup() {
     const boardStore = useBoardStore();
-        // Computed property to get apprentice's name from the store
-        const apprenticeName = computed(() => boardStore.boardItems.name || "Loading...");
+    const { apprenticeData } = storeToRefs(boardStore);
 
-        return{
-          apprenticeName
-        }
+    // Define dropdown-related states and references
+    const dropdownPopoverShow = ref(false);
+    const btnDropdownRef = ref(null);
+    const popoverDropdownRef = ref(null);
 
-  },
-  methods: {
-    logout: async function (){
-      await signOut(auth);
-      router.push("/auth/login");
-    },
-    toggleDropdown: function (event) {
+    // Toggle dropdown function
+    const toggleDropdown = (event) => {
       event.preventDefault();
-      if (this.dropdownPopoverShow) {
-        this.dropdownPopoverShow = false;
-      } else {
-        this.dropdownPopoverShow = true;
-        createPopper(this.$refs.btnDropdownRef, this.$refs.popoverDropdownRef, {
+      dropdownPopoverShow.value = !dropdownPopoverShow.value;
+      if (dropdownPopoverShow.value) {
+        createPopper(btnDropdownRef.value, popoverDropdownRef.value, {
           placement: "bottom-start",
         });
       }
-    },
+    };
+
+    // Logout function
+    const logout = async () => {
+      await signOut(auth);
+      router.push("/auth/login");
+    };
+
+    return {
+      apprenticeData,
+      image,
+      dropdownPopoverShow,
+      toggleDropdown,
+      logout,
+      btnDropdownRef,
+      popoverDropdownRef,
+    };
   },
 };
 </script>

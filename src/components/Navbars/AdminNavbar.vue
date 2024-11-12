@@ -11,7 +11,7 @@
         class="text-blue text-sm uppercase hidden lg:inline-block font-semibold"
         href="javascript:void(0)"
       >
-         Apprenticeship Dashboard
+         <img :src="whiteLogo" class="w-40 object-cover" alt="The Coders Guild Logo">
       </a>
       <!-- Form -->
       <!-- <form
@@ -41,10 +41,17 @@
 
 <script>
 import UserDropdown from "@/components/Dropdowns/UserDropdown.vue";
+import whiteLogo from "@/assets/img/logo/The_Coders_Guild_Logo_White.svg";
 
 export default {
   components: {
-    UserDropdown,
+    UserDropdown
   },
+
+  data(){
+    return {
+      whiteLogo
+    }
+  }
 };
 </script>
