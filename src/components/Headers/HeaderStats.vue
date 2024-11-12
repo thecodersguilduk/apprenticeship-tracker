@@ -22,6 +22,30 @@
               :statPercent="ksbProgressPercent" statPercentColor="text-blue-500" statDescripiron="Since last month"
               statIconName="far fa-chart-bar" statIconColor="bg-red-500" />
           </div>
+
+<div class="flex flex-wrap justify-center gap-4 my-4">
+  <!-- Coach and Cohort Information Section -->
+  <div class="w-full max-w-4xl mx-auto bg-white border-blue-800 shadow-lg rounded-lg p-4">
+    <hr>
+    <div class="w-full max-w-4xl mx-auto rounded-lg p-4 m-4 flex flex-col items-center">
+    <div class="mb-2 text-center">
+      <!-- <img src="https://thumbs.dreamstime.com/b/off-job-training-concept-icon-off-job-training-concept-icon-staff-development-method-idea-thin-line-illustration-online-208172324.jpg" class="w-32 max-w-xs h-auto" alt=""> -->
+      <h3 class="text-md font-medium text-blue mb-1"> Upload your OTJ by clicking <a href ="https://wkf.ms/3OeZTQh" target="_blank" class="underline font-bold">here</a>  </h3>
+      <h1 class="text-md font-bold"> OR </h1>
+      <h3 class="text-md font-medium text-gray-900 mb-2"> Scan this QR code to upload your OTJ hours</h3>
+      <div class="flex justify-center">
+        <img src="../../assets/img/OTJ-QR.png" class="w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-lg shadow-md" alt="QR code">
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- QR Code Section -->
+  
+</div>
+
+        <!-- Card stats -->
+        <div class="flex flex-wrap p-5">
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats statSubtitle="KSBs Progress" :statTitle="ksbProgressTitle" statArrow="up"
               :statPercent="ksbProgressPercent" statPercentColor="text-blue-500" statDescripiron="Since last month"

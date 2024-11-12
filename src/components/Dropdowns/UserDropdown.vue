@@ -1,7 +1,7 @@
 <template>
   <div class="flex text-black gap-2 items-center">
     Welcome {{ apprenticeData?.name }}
-    
+
     <a
       class="text-blueGray-500 block pl-4"
       href="#pablo"
