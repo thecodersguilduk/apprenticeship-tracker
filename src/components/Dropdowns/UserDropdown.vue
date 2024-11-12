@@ -1,5 +1,5 @@
 <template>
-  <div class="flex text-black gap-2 items-center">
+  <div class="flex text-white gap-2 items-center">
     Welcome {{ apprenticeData?.name }}
 
     <a

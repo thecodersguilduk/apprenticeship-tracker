@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 function replaceSpacesWithUnderscores(str) {
   return str.replace(/\s+/g, '_');
 }
@@ -15,7 +17,7 @@ export function transformLearnerData(item) {
           if (column.values && column.values.length > 0) {
             value = column.values[0].label; // Use the first label
           } else if (column.date) {
-            value = column.date;
+            value = format(column.date, 'MMMM dd, yyyy'); // Format the date
           } else if (column.text) {
             value = column.text
           }

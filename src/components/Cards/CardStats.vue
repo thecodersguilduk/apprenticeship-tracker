@@ -1,6 +1,7 @@
 <template>
   <div
-    class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg"
+    class="relative flex flex-col min-w-0 break-words rounded mb-6 xl:mb-0 shadow-lg"
+    :class="[bgColour, colour]"
   >
     <div class="flex-auto p-4">
       <div class="flex flex-wrap">
@@ -12,7 +13,7 @@
             {{ statTitle }}
           </span>
         </div>
-        <div class="relative w-auto pl-4 flex-initial">
+        <div v-if="statIconName" class="relative w-auto pl-4 flex-initial">
           <div
             class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full"
             :class="[statIconColor]"
@@ -21,7 +22,7 @@
           </div>
         </div>
       </div>
-      <p class="text-sm text-blueGray-400 mt-4">
+      <p v-if="statDescription" class="text-sm text-blueGray-400 mt-4">
         <span class="mr-2" :class="[statPercentColor]">
           <i
             :class="[
@@ -30,7 +31,7 @@
           ></i>
           {{ statPercent }}%
         </span>
-        <span class="whitespace-nowrap">{{ statDescripiron }}</span>
+        <span class="whitespace-nowrap">{{ statDescription }}</span>
       </p>
     </div>
   </div>
@@ -39,6 +40,14 @@
 export default {
   name: "card-stats",
   props: {
+    bgColour: {
+      type: String,
+      default: 'bg-white'
+    },
+    colour: {
+      type: String,
+      default: 'text-black'
+    },
     statSubtitle: {
       type: String,
       default: "Traffic",
@@ -62,19 +71,19 @@ export default {
       type: String,
       default: "text-emerald-500",
     },
-    statDescripiron: {
+    statDescription: {
       type: String,
-      default: "Since last month",
+      default: "",
     },
     statIconName: {
       type: String,
-      default: "far fa-chart-bar",
+      default: "",
     },
     // can be any of the background color utilities
     // from tailwindcss
     statIconColor: {
       type: String,
-      default: "bg-red-500",
+      default: "",
     },
   },
 };
