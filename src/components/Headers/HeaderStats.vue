@@ -11,7 +11,7 @@
           </div>
 
           <div class="w-full lg:w-6/12 xl:w-3/12 ">
-            <card-stats statSubtitle="KSBs Progress" :statTitle="ksbProgressTitle" statArrow="up"
+            <card-stats statSubtitle="KSB Progress" :statTitle="ksbProgressTitle" statArrow="up"
               :statPercent="ksbProgressPercent" statPercentColor="text-blue-500" statDescription="Since last month"
               statIconName="far fa-chart-bar" statIconColor="bg-red-500" />
           </div>
