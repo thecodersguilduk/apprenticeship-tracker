@@ -117,13 +117,11 @@
 </template>
 
 <script>
-import logo from '@/assets/img/logo/TCG_Square_Logo_Blue.svg';
+import logo from "@/assets/img/logo/TCG_Square_Logo_Blue.svg";
 import { ref } from "vue";
-import { auth, signInWithEmailAndPassword, getDoc, db, doc } from "@/firebase";
+import { auth, signInWithEmailAndPassword } from "@/firebase";
 import { useRouter } from "vue-router";
-import mondayService from "../../../services/mondayService";
-import { useBoardStore } from '@/store/useBoardStore';
-import { transformLearnerData } from "@/helpers/transformLearnerData";
+import { useBoardStore } from "@/store/useBoardStore";
 
 export default {
   name: "Login",
@@ -132,59 +130,25 @@ export default {
     const password = ref("");
     const error = ref("");
     const router = useRouter();
+    const boardStore = useBoardStore();
 
-    
-
-    return {
-      logo,
-      email,
-      password,
-      error,
-      router
-    };
-  },
-  methods: {
-    submit: async function () {
+    async function submit() {
       try {
-        const userCredential = await signInWithEmailAndPassword(auth, this.email, this.password);
-        //console.log("Authenticated User:", userCredential.user);
+        // Authenticate the user
+        const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
         const userId = userCredential.user.uid;
 
-        // Fetch the Monday.com ID from Firestore
-        const userDoc = await getDoc(doc(db, "users", userId));
-        if (userDoc.exists()) {
-          //console.log("User document found:", userDoc.data());
+        // Retrieve Monday.com data through the store
+        await boardStore.fetchApprenticeData(userId);
 
-          const userData = userDoc.data();
-          const apprenticeId = userData.apprenticeId;
-
-          // console.log(apprenticeId);
-
-          if (!apprenticeId) {
-            throw new Error("Apprentice ID missing in Firestore document");
-          }
-
-          // Make API request to Monday.com to verify the ID
-          const response = await mondayService.getBoardData(apprenticeId);
-          const learnerData = transformLearnerData(response[0]);
-          const boardStore = useBoardStore();
-          boardStore.setApprenticeData(learnerData);
-          
-          if (response) {
-            this.router.push("/admin/dashboard");
-          } else {
-            this.error = "Invalid Monday.com ID. Please contact support.";
-          }
-        } else {
-          console.log("No document found for this user in Firestore.");
-          this.error = "No record found for the user. Please contact support.";
-        }
+        // If successful, navigate to dashboard
+        router.push("/admin/dashboard");
       } catch (err) {
-        this.error = err.message;
+        error.value = err.message;
       }
     }
-  }
-    
-  };
 
+    return { logo, email, password, error, router, submit };
+  },
+};
 </script>
