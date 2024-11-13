@@ -175,6 +175,13 @@ export default {
                   }
                   text
                 }
+                ... on NumbersValue {
+                  number
+                	column {
+                    title
+                  }
+                  symbol
+                }
             }
            } 
         }
@@ -191,6 +198,8 @@ export default {
           'Content-Type': 'application/json',
         }
       });
+
+      console.log(response.data.data.boards[0].items_page.items);
       return response.data.data.boards[0].items_page.items;
     } catch (error) {
       console.error('Error fetching data:', error);

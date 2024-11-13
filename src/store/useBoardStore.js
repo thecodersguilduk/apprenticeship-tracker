@@ -31,4 +31,5 @@ export const useBoardStore = defineStore("board", {
       this.apprenticeData = data;
     }
   },
+  persist: true,
 });

@@ -20,7 +20,9 @@ export function transformLearnerData(item) {
             value = format(column.date, 'MMMM dd, yyyy'); // Format the date
           } else if (column.text) {
             value = column.text
-          }
+          } else if (column.number !== null || column.number !== undefined) {
+            value = column.number + column.symbol; // Add the symbol if it exists
+          } 
 
           acc[title] = value; // Add the title as key, value as value
         }
