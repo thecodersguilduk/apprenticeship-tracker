@@ -6,12 +6,13 @@
     <div class="flex-auto p-4">
       <div class="flex flex-wrap">
         <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-          <h5 class="text-blueGray-400 uppercase font-bold text-xs">
+          <h5 class="text-black uppercase font-bold text-xs">
             {{ statSubtitle }}
           </h5>
-          <span class="font-semibold text-xl text-blueGray-700">
-            {{ statTitle }}
+          <span class="font-semibold text-xl text-black">
+            {{ statTitle }}  
           </span>
+          <span class="font-semibold text-xl text-black" v-if="statTarget"> / {{ statTarget }} </span>
         </div>
         <div v-if="statIconName" class="relative w-auto pl-4 flex-initial">
           <div
@@ -79,9 +80,11 @@ export default {
       type: String,
       default: "",
     },
-    // can be any of the background color utilities
-    // from tailwindcss
     statIconColor: {
+      type: String,
+      default: "",
+    },
+    statTarget: {
       type: String,
       default: "",
     },

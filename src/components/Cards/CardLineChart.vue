@@ -23,114 +23,161 @@
   </div>
 </template>
 <script>
+import { mapState } from "pinia";
 import Chart from "chart.js";
+import { useBoardStore } from "../../store/useBoardStore";
+
+function calculateMonthsBetween(startDate, endDate) {
+  const months =
+    (endDate.getFullYear() - startDate.getFullYear()) * 12 +
+    (endDate.getMonth() - startDate.getMonth());
+  return months + 1;
+}
+
+function generateProgressCurve(totalMonths) {
+  const data = [];
+  const phase1Months = 3; // Ramp-up phase
+  const plateauEnd = Math.floor(totalMonths * 0.6); // End of gentle incline
+
+  const plateauDuration = plateauEnd - phase1Months; // Duration of gentle incline
+  const steepPhaseDuration = totalMonths - plateauEnd; // Duration of final steep incline
+
+  const rampUpRate = 30 / phase1Months; // Increment rate for Phase 1
+  const gentleInclineRate = 20 / plateauDuration; // Increment rate for Phase 2
+  const steepInclineRate = 50 / steepPhaseDuration; // Increment rate for Phase 3
+
+  for (let month = 0; month <= totalMonths; month++) {
+    if (month < phase1Months) {
+      // Phase 1: Ramp-up
+      data.push(rampUpRate * month);
+    } else if (month < plateauEnd) {
+      // Phase 2: Gentle incline
+      const progressInPlateau = 30 + gentleInclineRate * (month - phase1Months);
+      data.push(progressInPlateau);
+    } else {
+      // Phase 3: Steeper incline
+      const progressInSteepPhase =
+        50 + steepInclineRate * (month - plateauEnd);
+      data.push(progressInSteepPhase);
+    }
+  }
+
+  // Final adjustment to hit exactly 100%
+  const adjustmentFactor = 100 / data[data.length - 1];
+  for (let i = 0; i < data.length; i++) {
+    data[i] *= adjustmentFactor;
+  }
+
+  return data;
+}
+
+
+
 
 export default {
-  mounted: function () {
-    this.$nextTick(function () {
-      var config = {
+  data() {
+    return {
+      chart: null, // Holds the Chart.js instance
+    };
+  },
+  computed: {
+    ...mapState(useBoardStore, ["apprenticeId", "apprenticeData"]),
+    start_date() {
+      return this.apprenticeData?.start_date || null;
+    },
+    practical_end_date() {
+      return this.apprenticeData?.practical_end_date || null;
+    },
+    isDataReady() {
+      return this.start_date && this.practical_end_date;
+    },
+  },
+  watch: {
+    isDataReady(newVal) {
+      if (newVal) {
+        this.updateChart();
+      }
+    },
+    apprenticeData() {
+      if (this.isDataReady) {
+        this.updateChart();
+      }
+    },
+  },
+  methods: {
+    updateChart() {
+      if (!this.start_date || !this.practical_end_date) return;
+
+      const startDate = new Date(this.start_date);
+      const endDate = new Date(this.practical_end_date);
+      const totalMonths = calculateMonthsBetween(startDate, endDate);
+      const labels = Array.from({ length: totalMonths }, (_, i) => {
+        const date = new Date(startDate);
+        date.setMonth(startDate.getMonth() + i);
+        return date.toLocaleString("default", { month: "short", year: "numeric" });
+      });
+
+      const progressData = generateProgressCurve(totalMonths);
+
+      if (this.chart) {
+        this.chart.destroy();
+      }
+
+      const ctx = document.getElementById("line-chart").getContext("2d");
+      this.chart = new Chart(ctx, {
         type: "line",
         data: {
-          labels: [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-          ],
+          labels,
           datasets: [
             {
-              label: new Date().getFullYear(),
-              backgroundColor: "#2574a9",
-              borderColor: "#2574a9",
-              data: [65, 78, 66, 44, 56, 67, 75],
-              fill: false,
-            },
-            {
-              label: new Date().getFullYear() - 1,
-              fill: false,
-              backgroundColor: "#fff",
+              label: "Expected Progress",
+              backgroundColor: "rgba(255, 255, 255, 0.5)",
               borderColor: "#fff",
-              data: [40, 68, 86, 74, 56, 60, 87],
+              data: progressData,
+              borderWidth: 2,
+              pointBackgroundColor: "#fff",
+              fill: false,
+              tension: 0.6,
             },
           ],
         },
         options: {
           maintainAspectRatio: false,
           responsive: true,
-          title: {
-            display: false,
-            text: "Sales Charts",
-            fontColor: "white",
-          },
-          legend: {
-            labels: {
-              fontColor: "white",
-            },
-            align: "end",
-            position: "bottom",
-          },
-          tooltips: {
-            mode: "index",
-            intersect: false,
-          },
-          hover: {
-            mode: "nearest",
-            intersect: true,
-          },
           scales: {
-            xAxes: [
-              {
-                ticks: {
-                  fontColor: "rgba(255,255,255,.7)",
-                },
-                display: true,
-                scaleLabel: {
-                  display: false,
-                  labelString: "Month",
-                  fontColor: "white",
-                },
-                gridLines: {
-                  display: false,
-                  borderDash: [2],
-                  borderDashOffset: [2],
-                  color: "rgba(33, 37, 41, 0.3)",
-                  zeroLineColor: "rgba(0, 0, 0, 0)",
-                  zeroLineBorderDash: [2],
-                  zeroLineBorderDashOffset: [2],
+            x: {
+              ticks: { color: "#ccc" },
+              grid: { color: "rgba(255,255,255,0.1)" },
+            },
+            y: {
+              ticks: { color: "#ccc" },
+              grid: { color: "rgba(255,255,255,0.1)" },
+            },
+          },
+          plugins: {
+            tooltip: {
+              mode: "index",
+              intersect: false,
+              callbacks: {
+                label(context) {
+                  return `${context.dataset.label}: ${context.raw.toFixed(2)}%`;
                 },
               },
-            ],
-            yAxes: [
-              {
-                ticks: {
-                  fontColor: "rgba(255,255,255,.7)",
-                },
-                display: true,
-                scaleLabel: {
-                  display: false,
-                  labelString: "Value",
-                  fontColor: "white",
-                },
-                gridLines: {
-                  borderDash: [3],
-                  borderDashOffset: [3],
-                  drawBorder: false,
-                  color: "rgba(255, 255, 255, 0.15)",
-                  zeroLineColor: "rgba(33, 37, 41, 0)",
-                  zeroLineBorderDash: [2],
-                  zeroLineBorderDashOffset: [2],
-                },
-              },
-            ],
+            },
+            legend: {
+              display: true,
+              labels: { color: "#fff" },
+            },
           },
         },
-      };
-      var ctx = document.getElementById("line-chart").getContext("2d");
-      window.myLine = new Chart(ctx, config);
-    });
+      });
+    },
+  },
+  mounted() {
+    if (this.isDataReady) {
+      this.updateChart();
+    }
   },
 };
 </script>
+
