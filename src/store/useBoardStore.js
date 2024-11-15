@@ -5,6 +5,7 @@ import { transformLearnerData } from "@/helpers/transformLearnerData";
 
 export const useBoardStore = defineStore("board", {
   state: () => ({
+    apprenticeId: null,
     apprenticeData: null,
   }),
   actions: {
@@ -15,6 +16,7 @@ export const useBoardStore = defineStore("board", {
         if (!userDoc.exists()) throw new Error("User document not found.");
 
         const apprenticeId = userDoc.data().apprenticeId;
+        this.apprenticeId = apprenticeId;
         if (!apprenticeId) throw new Error("Apprentice ID missing.");
 
         // Fetch data from Monday.com

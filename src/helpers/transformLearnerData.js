@@ -1,7 +1,9 @@
 import { format } from "date-fns";
 
-function replaceSpacesWithUnderscores(str) {
-  return str.replace(/\s+/g, '_');
+function replaceSpacesAndHyphens(str) {
+  return str
+  .replace(/[\s-]+/g, '_') // Replace spaces and hyphens with underscores
+  .replace(/[()]/g, '');   // Remove parentheses but preserve content inside
 }
 
 export function transformLearnerData(item) {
@@ -10,7 +12,7 @@ export function transformLearnerData(item) {
       name: item.name,
       ...(Array.isArray(item.column_values) ? item.column_values.reduce((acc, column) => {
         if (column && column.column && column.column.title) {
-          const title = replaceSpacesWithUnderscores(column.column.title.toLowerCase());
+          const title = replaceSpacesAndHyphens(column.column.title.toLowerCase());
           let value = "";
 
           // Check if it has values (like labels) or dates

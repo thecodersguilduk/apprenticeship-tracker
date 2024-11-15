@@ -12,7 +12,7 @@
 
           <div class="">
             <card-stats statSubtitle="Start Date" :statTitle="start_date"
-              :statPercent="rag" statPercentColor="text-blue-500"
+               statPercentColor="text-blue-500"
                />
           </div>
 
@@ -29,23 +29,22 @@
           </div>
 
           <div class="">
-            <card-stats statSubtitle="KSB Progress" :statTitle="ksb_progress" statArrow="up"
-              :statPercent="ksb_progress" statPercentColor="text-blue-500" statDescription="Since last month"
+            <card-stats statSubtitle="KSB Progress" :statTitle="ksb_progress"
+               statPercentColor="text-blue-500"
               statIconName="far fa-chart-bar" statIconColor="bg-red-500" />
           </div>
           <div class="">
-            <card-stats statSubtitle="OTJ HOURS LOGGED" :statTitle="OTJH_Achieved" statArrow="up"
-              :statPercent="otjHoursPercent" statPercentColor="text-red-500" statDescription="Since last week"
+            <card-stats statSubtitle="OTJ HOURS LOGGED" :statTitle="otjh_achieved" :statTarget="otjh_target" statPercentColor="text-black"
               statIconName="fas fa-chart-pie" statIconColor="bg-orange-500" />
           </div>
           <div class="">
-            <card-stats statSubtitle="PORTFOLIO/ACTIVITY LOG" :statTitle="portfolioActivityTitle" statArrow="up"
+            <card-stats statSubtitle="PORTFOLIO/ACTIVITY LOG" :statTitle="portfolioActivityTitle" 
               :statPercent="portfolioActivityPercent" statPercentColor="text-orange-500"
-              statDescription="Since yesterday" statIconName="fas fa-users" statIconColor="bg-pink-500" />
+               statIconName="fas fa-users" statIconColor="bg-pink-500" />
           </div>
           <div class="">
-            <card-stats statSubtitle="SESSIONS ATTENDED" :statTitle="sessionsAttendedTitle" statArrow="up"
-              :statPercent="sessionsAttendedPercent" statPercentColor="text-blue-500" statDescription="Since last month"
+            <card-stats statSubtitle="SESSIONS ATTENDED" :statTitle="sessionsAttendedTitle"
+              :statPercent="sessionsAttendedPercent" statPercentColor="text-blue-500" 
               statIconName="fas fa-book-open" statIconColor="bg-purple-500" />
           </div>
         </div>
@@ -74,6 +73,8 @@ export default {
     const practical_end_date = ref('Not set yet');
     const time_to_epa = ref('');
     const ksb_progress = ref('');
+    const otjh_achieved = ref('');
+    const otjh_target = ref('');
     console.log(apprenticeData);
 
     watch(apprenticeData, (newData) => {
@@ -95,6 +96,14 @@ export default {
         ksb_progress.value = newData.ksb_progress
       }
 
+      if (newData && newData.otjh_achieved) {
+        otjh_achieved.value = newData.otjh_achieved
+      }
+
+      if (newData && newData.otjh_target_min) {
+        otjh_target.value = newData.otjh_target_min
+      }
+
 
     }, { immediate: true });
 
@@ -105,7 +114,9 @@ export default {
       start_date,
       practical_end_date,
       time_to_epa,
-      ksb_progress
+      ksb_progress,
+      otjh_achieved,
+      otjh_target
     };
   },
 };

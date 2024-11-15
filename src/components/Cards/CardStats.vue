@@ -10,8 +10,9 @@
             {{ statSubtitle }}
           </h5>
           <span class="font-semibold text-xl text-black">
-            {{ statTitle }}
+            {{ statTitle }}  
           </span>
+          <span class="font-semibold text-xl text-black" v-if="statTarget"> / {{ statTarget }} </span>
         </div>
         <div v-if="statIconName" class="relative w-auto pl-4 flex-initial">
           <div
@@ -79,9 +80,11 @@ export default {
       type: String,
       default: "",
     },
-    // can be any of the background color utilities
-    // from tailwindcss
     statIconColor: {
+      type: String,
+      default: "",
+    },
+    statTarget: {
       type: String,
       default: "",
     },
