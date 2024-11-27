@@ -29,23 +29,18 @@
           </div>
 
           <div class="">
-            <card-stats statSubtitle="KSB Progress" :statTitle="ksb_progress"
-               statPercentColor="text-blue-500"
-              statIconName="far fa-chart-bar" statIconColor="bg-red-500" />
+            <card-stats statSubtitle="KSB Progress" :statTitle="ksb_progress" />
           </div>
           <div class="">
-            <card-stats statSubtitle="OTJ HOURS LOGGED" :statTitle="otjh_achieved" :statTarget="otjh_target" statPercentColor="text-black"
-              statIconName="fas fa-chart-pie" statIconColor="bg-orange-500" />
+            <card-stats statSubtitle="OTJ HOURS LOGGED" :statTitle="otjh_achieved" :statTarget="otjh_target"  />
           </div>
           <div class="">
-            <card-stats statSubtitle="PORTFOLIO/ACTIVITY LOG" :statTitle="portfolioActivityTitle" 
-              :statPercent="portfolioActivityPercent" statPercentColor="text-orange-500"
-               statIconName="fas fa-users" statIconColor="bg-pink-500" />
+            <card-stats statSubtitle="PORTFOLIO/ACTIVITY LOG" :statTitle="portfolioact_log_progress" 
+              
+                 />
           </div>
-          <div class="">
-            <card-stats statSubtitle="SESSIONS ATTENDED" :statTitle="sessionsAttendedTitle"
-              :statPercent="sessionsAttendedPercent" statPercentColor="text-blue-500" 
-              statIconName="fas fa-book-open" statIconColor="bg-purple-500" />
+          <div class="h-full w-full bg-white relative">
+            <a target="_blank" class="absolute inset-0 cursor-pointer flex items-center justify-center font-bold" href="https://wkf.ms/3OeZTQh">Submit OTJ Logs!</a>
           </div>
         </div>
     </div>
@@ -75,6 +70,7 @@ export default {
     const ksb_progress = ref('');
     const otjh_achieved = ref('');
     const otjh_target = ref('');
+    const portfolioact_log_progress = ref('');
     console.log(apprenticeData);
 
     watch(apprenticeData, (newData) => {
@@ -93,7 +89,9 @@ export default {
       }
 
       if (newData && newData.ksb_progress) {
-        ksb_progress.value = newData.ksb_progress
+        const progressArray = newData.ksb_progress.split(',');
+        
+        ksb_progress.value = progressArray[progressArray.length - 1] + '%';
       }
 
       if (newData && newData.otjh_achieved) {
@@ -102,6 +100,10 @@ export default {
 
       if (newData && newData.otjh_target_min) {
         otjh_target.value = newData.otjh_target_min
+      }
+
+      if( newData && newData.portfolioact_log_progress) {
+        portfolioact_log_progress.value = newData.portfolioact_log_progress
       }
 
 
@@ -116,7 +118,8 @@ export default {
       time_to_epa,
       ksb_progress,
       otjh_achieved,
-      otjh_target
+      otjh_target,
+      portfolioact_log_progress
     };
   },
 };

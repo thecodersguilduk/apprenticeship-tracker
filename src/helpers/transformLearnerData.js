@@ -1,9 +1,10 @@
 import { format } from "date-fns";
 
-function replaceSpacesAndHyphens(str) {
+export function replaceSpecialCharacters(str) {
   return str
-  .replace(/[\s-]+/g, '_') // Replace spaces and hyphens with underscores
-  .replace(/[()]/g, '');   // Remove parentheses but preserve content inside
+    .replace(/[^a-zA-Z0-9\s]+/g, '') // Remove all special characters except spaces
+    .replace(/[\s/]+/g, '_')            // Replace spaces with underscores
+    .toLowerCase();                  // Optionally convert to lowercase for consistency
 }
 
 export function transformLearnerData(item) {
@@ -12,7 +13,7 @@ export function transformLearnerData(item) {
       name: item.name,
       ...(Array.isArray(item.column_values) ? item.column_values.reduce((acc, column) => {
         if (column && column.column && column.column.title) {
-          const title = replaceSpacesAndHyphens(column.column.title.toLowerCase());
+          const title = replaceSpecialCharacters(column.column.title.toLowerCase());
           let value = "";
 
           // Check if it has values (like labels) or dates
@@ -27,6 +28,7 @@ export function transformLearnerData(item) {
           } 
 
           acc[title] = value; // Add the title as key, value as value
+
         }
         return acc;
       }, {}) : {}) // If column_values is undefined or not an array, use an empty object

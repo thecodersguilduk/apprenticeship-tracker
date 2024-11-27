@@ -71,6 +71,26 @@ function generateProgressCurve(totalMonths) {
   return data;
 }
 
+function generateActualProgressCurve(progressData, totalMonths, elapsedMonths) {
+  console.log(progressData)
+
+  const data = Array(totalMonths).fill(null); // Initialize all months with null
+  if (progressData.length === 1) {
+    data[elapsedMonths - 1] = progressData[0]; // Place the single progress point in the current month
+  } else {
+    progressData.forEach((value, index) => {
+      if (index < totalMonths) {
+        data[index] = value; // Populate the array with the given progress points
+      }
+    });
+  }
+
+  return data;
+
+
+}
+
+
 
 
 
@@ -88,8 +108,11 @@ export default {
     practical_end_date() {
       return this.apprenticeData?.practical_end_date || null;
     },
+    ksb_progress(){
+      return this.apprenticeData?.ksb_progress.split(',') || null;
+    },
     isDataReady() {
-      return this.start_date && this.practical_end_date;
+      return this.start_date && this.practical_end_date && this.ksb_progress;
     },
   },
   watch: {
@@ -111,13 +134,23 @@ export default {
       const startDate = new Date(this.start_date);
       const endDate = new Date(this.practical_end_date);
       const totalMonths = calculateMonthsBetween(startDate, endDate);
+      const currentDate = new Date();
+      const elapsedMonths = calculateMonthsBetween(startDate, currentDate);
+
       const labels = Array.from({ length: totalMonths }, (_, i) => {
         const date = new Date(startDate);
         date.setMonth(startDate.getMonth() + i);
         return date.toLocaleString("default", { month: "short", year: "numeric" });
       });
 
-      const progressData = generateProgressCurve(totalMonths);
+      const expectedProgressData = generateProgressCurve(totalMonths);
+      console.log("progressData:", expectedProgressData);
+
+      const actualProgressData = generateActualProgressCurve(this.ksb_progress, totalMonths, elapsedMonths);
+      console.log(this.ksb_progress)
+      console.log("actualProgressData:", actualProgressData);
+
+
 
       if (this.chart) {
         this.chart.destroy();
@@ -133,9 +166,20 @@ export default {
               label: "Expected Progress",
               backgroundColor: "rgba(255, 255, 255, 0.5)",
               borderColor: "#fff",
-              data: progressData,
+              data: expectedProgressData,
               borderWidth: 2,
               pointBackgroundColor: "#fff",
+              fill: false,
+              tension: 0.6,
+            },
+            {
+              label: "Portfolio Progress",
+              backgroundColor: "rgba(54, 162, 235, 0.5)",
+              borderColor: "rgba(54, 162, 235, 1)",
+              data: actualProgressData, // Plot actual progress for elapsed months
+
+              borderWidth: 2,
+              pointBackgroundColor: "rgba(54, 162, 235, 1)",
               fill: false,
               tension: 0.6,
             },

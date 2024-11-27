@@ -82,7 +82,8 @@
       </button>
     </div> -->
   </form>
-  <p>New to our tracker? Register <a href="/auth/register">here</a></p>
+  <p>New to our tracker? Register <a class="cursor-pointer" href="/auth/register">here</a></p>
+  <p>Forgot your password? <a class="cursor-pointer" href="/auth/forgot-password">Reset it here</a></p>
 </div>
 
           <div class="mt-10">

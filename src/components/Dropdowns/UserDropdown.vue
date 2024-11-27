@@ -71,6 +71,7 @@ export default {
 
     // Logout function
     const logout = async () => {
+      localStorage.removeItem("board");
       await signOut(auth);
       router.push("/auth/login");
     };
