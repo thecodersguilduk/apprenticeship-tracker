@@ -11,7 +11,7 @@
           >
             Copyright © {{ date }}
             <a
-              href="https://www.creative-tim.com?ref=vn-footer-admin"
+              href="https://www.thecodersguild.org.uk"
               class="text-blueGray-500 hover:text-blueGray-700 text-sm font-semibold py-1"
             >
               The Coders Guild
@@ -22,7 +22,7 @@
           <ul class="flex flex-wrap list-none md:justify-end justify-center">
             <li>
               <a
-                href="https://thecodersguild.org.uk/"
+                href="https://thecodersguild.org.uk/about"
                 class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
               >
                 About Us
@@ -30,7 +30,7 @@
             </li>
             <li>
               <a
-                href="https://thecodersguild.org.uk/"
+                href=""
                 class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
               >
                 Feedback

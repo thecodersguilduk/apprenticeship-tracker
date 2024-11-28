@@ -24,6 +24,7 @@ import Dashboard from "@/views/admin/Dashboard.vue";
 import Settings from "@/views/admin/Settings.vue";
 import Tables from "@/views/admin/Tables.vue";
 import Maps from "@/views/admin/Maps.vue";
+import TrainingPlan from "@/views/admin/TrainingPlan.vue";
 
 // views for Auth layout
 
@@ -61,6 +62,10 @@ const routes = [
         path: "/admin/maps",
         component: Maps,
       },
+      {
+        path: "/admin/training-plan",
+        component: TrainingPlan
+      }
     ],
   },
   {

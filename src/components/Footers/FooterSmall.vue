@@ -16,10 +16,10 @@
           >
             Copyright © {{ date }}
             <a
-              href="https://www.creative-tim.com?ref=vn-footer-small"
+              href="https://thecodersguild.org.uk"
               class="text-white hover:text-blueGray-300 text-sm font-semibold py-1"
             >
-              Creative Tim
+              The Coders Guild
             </a>
           </div>
         </div>

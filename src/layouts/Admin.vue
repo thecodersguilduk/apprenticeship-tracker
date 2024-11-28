@@ -19,7 +19,6 @@ export default {
   name: "admin-layout",
   components: {
     AdminNavbar,
-    //Sidebar,
     HeaderStats,
     FooterAdmin,
   },

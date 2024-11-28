@@ -37,7 +37,13 @@ export const useBoardStore = defineStore("board", {
   },
   getters: {
     trainingPlan(state) {
-      return state.apprenticeData?.training_plan || [];
+      return state.apprenticeData?.training_plan
+      .map(session => {
+        return {
+          ...session,
+          date: format(new Date(session.date), 'dd/MM/yyyy')
+        }
+      }) || [];
     },
     nextSixWeeksTraining(state) {
       const today = startOfDay(new Date()); // Normalize to start of the day
