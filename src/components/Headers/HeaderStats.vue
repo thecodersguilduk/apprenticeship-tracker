@@ -119,7 +119,7 @@ export default {
       ksb_progress,
       otjh_achieved,
       otjh_target,
-      portfolioact_log_progress
+      portfolioact_log_progress,
     };
   },
 };

@@ -182,6 +182,20 @@ export default {
                   }
                   symbol
                 }
+                ... on BoardRelationValue {
+                  column {
+                    title
+                    type
+                  }
+                  id
+                  linked_items {
+                    name
+                    column_values {
+                      text
+                      id
+                    }
+                  }
+              } 
             }
            } 
         }

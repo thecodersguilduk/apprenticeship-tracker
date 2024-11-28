@@ -72,8 +72,6 @@ function generateProgressCurve(totalMonths) {
 }
 
 function generateActualProgressCurve(progressData, totalMonths, elapsedMonths) {
-  console.log(progressData)
-
   const data = Array(totalMonths).fill(null); // Initialize all months with null
   if (progressData.length === 1) {
     data[elapsedMonths - 1] = progressData[0]; // Place the single progress point in the current month
@@ -144,11 +142,9 @@ export default {
       });
 
       const expectedProgressData = generateProgressCurve(totalMonths);
-      console.log("progressData:", expectedProgressData);
 
       const actualProgressData = generateActualProgressCurve(this.ksb_progress, totalMonths, elapsedMonths);
-      console.log(this.ksb_progress)
-      console.log("actualProgressData:", actualProgressData);
+
 
 
 

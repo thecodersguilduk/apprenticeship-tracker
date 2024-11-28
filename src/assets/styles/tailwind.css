@@ -1322,11 +1322,6 @@ select {
   background-color: rgba(102, 126, 234, var(--tw-bg-opacity));
 }
 
-.bg-purple-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(159, 122, 234, var(--tw-bg-opacity));
-}
-
 .bg-pink-500 {
   --tw-bg-opacity: 1;
   background-color: rgba(235, 82, 134, var(--tw-bg-opacity));
@@ -1345,6 +1340,16 @@ select {
 .bg-teal-500 {
   --tw-bg-opacity: 1;
   background-color: rgba(56, 178, 172, var(--tw-bg-opacity));
+}
+
+.odd\:bg-white:nth-child(odd) {
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+}
+
+.even\:bg-gray-100:nth-child(even) {
+  --tw-bg-opacity: 1;
+  background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
 }
 
 .hover\:bg-gray-50:hover {
@@ -4576,10 +4581,6 @@ select {
   .xl\:px-24 {
     padding-left: 6rem;
     padding-right: 6rem;
-  }
-
-  .xl\:w-3\/12 {
-    width: 25%;
   }
 
   .xl\:w-4\/12 {

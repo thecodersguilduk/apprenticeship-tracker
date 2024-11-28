@@ -2,6 +2,8 @@ import { defineStore } from "pinia";
 import mondayService from "../../services/mondayService";
 import { getDoc, doc, db } from "@/firebase";
 import { transformLearnerData } from "@/helpers/transformLearnerData";
+import { isWithinInterval, addDays, startOfDay, format } from 'date-fns';
+
 
 export const useBoardStore = defineStore("board", {
   state: () => ({
@@ -32,6 +34,33 @@ export const useBoardStore = defineStore("board", {
     setApprenticeData(data) {
       this.apprenticeData = data;
     }
+  },
+  getters: {
+    trainingPlan(state) {
+      return state.apprenticeData?.training_plan || [];
+    },
+    nextSixWeeksTraining(state) {
+      const today = startOfDay(new Date()); // Normalize to start of the day
+      const sixWeeksLater = addDays(today, 42); // Add 42 days
+
+      return state.apprenticeData?.training_plan
+      .filter(session => {
+          const sessionDate = startOfDay(new Date(session.date)); // Normalize session date
+
+          return isWithinInterval(sessionDate, { start: today, end: sixWeeksLater });
+        })
+      .sort((a, b) => new Date(a.date) - new Date(b.date))
+      .map(session => {
+        return {
+          ...session,
+          date: format(new Date(session.date), 'dd/MM/yyyy')
+        }
+      }) || [];
+    }
+
+    
+    
+    
   },
   persist: true,
 });
