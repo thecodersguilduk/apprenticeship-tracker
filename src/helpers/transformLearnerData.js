@@ -68,7 +68,7 @@ function mapColumnNames(columnId) {
   const columnMappings = {
       date__1: "date",
       status8: "type",
-      dropdown__1: "learner",
+      dropdown__1: "trainer",
       duration: "duration",
       status__1: "status",
       long_text__1: "notes",
