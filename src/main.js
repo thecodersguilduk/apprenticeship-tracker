@@ -15,27 +15,24 @@ import App from "@/App.vue";
 
 // layouts
 
-import Admin from "@/layouts/Admin.vue";
-import Auth from "@/layouts/Auth.vue";
+import Admin from "@/layouts/AppAdmin.vue";
+import Auth from "@/layouts/AppAuth.vue";
 
 // views for Admin layout
 
-import Dashboard from "@/views/admin/Dashboard.vue";
-import Settings from "@/views/admin/Settings.vue";
-import Tables from "@/views/admin/Tables.vue";
-import Maps from "@/views/admin/Maps.vue";
+import Dashboard from "@/views/admin/AppDashboard.vue";
 import TrainingPlan from "@/views/admin/TrainingPlan.vue";
 
 // views for Auth layout
 
-import Login from "@/views/auth/Login.vue";
-import Register from "@/views/auth/Register.vue";
+import Login from "@/views/auth/AppLogin.vue";
+import Register from "@/views/auth/AppRegister.vue";
 import ForgotPassword from "@/views/auth/ForgotPassword.vue";
 
 // views without layouts
 
-import Landing from "@/views/Landing.vue";
-import Profile from "@/views/Profile.vue";
+import Landing from "@/views/AppLanding.vue";
+import Profile from "@/views/AppProfile.vue";
 //import Index from "@/views/Index.vue";
 
 // routes
@@ -49,18 +46,6 @@ const routes = [
       {
         path: "/admin/dashboard",
         component: Dashboard,
-      },
-      {
-        path: "/admin/settings",
-        component: Settings,
-      },
-      {
-        path: "/admin/tables",
-        component: Tables,
-      },
-      {
-        path: "/admin/maps",
-        component: Maps,
       },
       {
         path: "/admin/training-plan",

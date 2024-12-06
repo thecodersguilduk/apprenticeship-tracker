@@ -82,7 +82,7 @@ import { useBoardStore } from "@/store/useBoardStore";
 import { transformLoginErrors } from "@/helpers/transformLoginErrors";
 
 export default {
-  name: "Login",
+  name: "AppLogin",
   setup() {
     const email = ref("");
     const password = ref("");

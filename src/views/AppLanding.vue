@@ -597,7 +597,7 @@
 </template>
 <script>
 import Navbar from "@/components/Navbars/AuthNavbar.vue";
-import FooterComponent from "@/components/Footers/Footer.vue";
+import FooterComponent from "@/components/Footers/AppFooter.vue";
 
 import team1 from "@/assets/img/team-1-800x800.jpg";
 import team2 from "@/assets/img/team-2-800x800.jpg";

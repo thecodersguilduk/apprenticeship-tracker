@@ -108,7 +108,7 @@ import { useRouter } from "vue-router";
 import registrationService from "../../../services/registrationService";
 
 export default {
-  name: "Register",
+  name: "AppRegister",
   setup() {
     const email = ref("");
     const password = ref("");

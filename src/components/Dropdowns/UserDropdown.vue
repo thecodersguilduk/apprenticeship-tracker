@@ -1,14 +1,15 @@
 <template>
   <div class="flex text-white gap-2 items-center">
-    Welcome {{ apprenticeData?.name }}
-
     <a
-      class="text-blueGray-500 block pl-4"
+      class="text-blueGray-500 block pl-4 cursor-pointer"
       href="#pablo"
       ref="btnDropdownRef"
       @click="toggleDropdown"
     >
-      <div class="items-center flex">
+    Welcome {{ apprenticeData?.name }}
+
+    
+      <!-- <div class="items-center flex">
         <span
           class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
         >
@@ -18,7 +19,7 @@
             :src="image"
           />
         </span>
-      </div>
+      </div> -->
     </a>
     <div
       ref="popoverDropdownRef"

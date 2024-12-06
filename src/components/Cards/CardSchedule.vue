@@ -80,18 +80,10 @@
 
 <script setup>
 import { useBoardStore } from "@/store/useBoardStore";
-import { computed, onMounted, watch } from 'vue';
+import { computed } from 'vue';
 
 const boardStore = useBoardStore();
 
 const trainingPlan = computed(() => boardStore.nextSixWeeksTraining);
-console.log('Card Schedule Component: ', trainingPlan.value)
-
-onMounted(() => {
-   watch(trainingPlan, (newVal) => {
-    console.log("Training Plan updated:", newVal);
-  });
-})
-
 
 </script>

@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import mondayService from "../../services/mondayService";
 import { getDoc, doc, db } from "@/firebase";
 import { transformLearnerData } from "@/helpers/transformLearnerData";
-import { isWithinInterval, addDays, startOfDay, format } from 'date-fns';
+import { isBefore, isAfter, differenceInDays, isWithinInterval, addDays, startOfDay, format } from 'date-fns';
 
 
 export const useBoardStore = defineStore("board", {
@@ -62,6 +62,35 @@ export const useBoardStore = defineStore("board", {
           date: format(new Date(session.date), 'dd/MM/yyyy')
         }
       }) || [];
+    },
+    getProgress(state) {
+      const today = new Date();
+
+      if(isBefore(today, state.apprenticeData?.start_date)){
+        return 0;
+      }
+
+      if(isAfter(today, state.apprenticeData?.end_date)){
+        return 100;
+      }
+
+      const totalDuration = differenceInDays(state.apprenticeData?.practical_end_date, state.apprenticeData?.start_date);
+      const elapsedTime = differenceInDays(today, state.apprenticeData?.start_date);
+
+      const elapsedTimePercentage = Math.round((elapsedTime / totalDuration) * 100);
+
+      const otjProgressPercentage = state.apprenticeData?.otjh_target_min ? Math.round((state.apprenticeData?.otjh_achieved / state.apprenticeData?.otjh_target_min) * 100) : 0;
+
+      const ksbProgress = state.apprenticeData?.ksb_progress.split(',');
+      const ksbProgressPercentage = Math.round(ksbProgress[ksbProgress.length - 1]);
+
+      return {
+        elapsedTimePercentage,
+        ksbProgressPercentage,
+        otjProgressPercentage
+      }
+
+      
     }
 
     

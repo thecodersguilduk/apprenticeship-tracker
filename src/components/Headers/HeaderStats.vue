@@ -74,9 +74,9 @@ export default {
     console.log(apprenticeData);
 
     watch(apprenticeData, (newData) => {
-      if (newData && newData.rag) {
-        rag.value = newData.rag
-        rag_colour.value = ragRatingColor(newData.rag);
+      if (newData && newData.overall_rag) {
+        rag.value = newData.overall_rag
+        rag_colour.value = ragRatingColor(newData.overall_rag);
       }
 
       if (newData && newData.start_date) {
