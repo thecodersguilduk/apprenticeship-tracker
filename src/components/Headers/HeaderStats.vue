@@ -2,7 +2,7 @@
   <!-- Header -->
   <div class="relative bg-blue-200 md:pt-32 pb-32 pt-12">
     <div class=" md:px-10 mx-auto w-full">
-      <h1 class="text-white text-3xl lg:text-5xl font-bold ">{{ apprenticeData?.name }} - {{ apprenticeData?.cohort }} Cohort</h1>
+      <h1 class="text-white text-3xl lg:text-5xl font-bold "><a href="/">{{ apprenticeData?.name }}</a> - {{ apprenticeData?.cohort }} Cohort</h1>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 py-4 gap-2">
           <div class="">
             <card-stats statSubtitle="RAG Rating" :statTitle="rag"

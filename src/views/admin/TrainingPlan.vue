@@ -69,7 +69,7 @@
               <td class="border-t-0 px-6 py-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                 {{ session.trainer }}
               </td>
-              <td class="border-t-0 px-6 py-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+              <td class="border-t-0 px-6 py-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4" :class="ragRatingColor(session.status)">
                 {{ session.status }}
               </td>
             </tr>        
@@ -82,6 +82,7 @@
 <script setup>
 import { useBoardStore } from "@/store/useBoardStore";
 import { computed, onMounted, watch } from 'vue';
+import { ragRatingColor } from "../../helpers/ragRatingColors";
 
 const boardStore = useBoardStore();
 

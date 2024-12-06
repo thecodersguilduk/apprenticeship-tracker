@@ -30,7 +30,8 @@
             </li>
             <li>
               <a
-                href=""
+                href="https://wkf.ms/3BcEGDd"
+                target="_blank"
                 class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
               >
                 Feedback
