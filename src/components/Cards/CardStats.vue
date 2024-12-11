@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative flex flex-col min-w-0 break-words rounded mb-6 xl:mb-0 shadow-lg"
+    class="relative flex flex-col min-w-0 break-words rounded mb-6 xl:mb-0 shadow-lg h-full"
     :class="[bgColour, colour]"
   >
     <div class="flex-auto p-4">
@@ -34,6 +34,9 @@
         </span>
         <span class="whitespace-nowrap">{{ statDescription }}</span>
       </p>
+      <a v-if="driveLink" :href="driveLink" target="_blank" class="text-sm text-blue-200 underline mt-4 cursor-pointer">
+        Click here to view your drive folder
+      </a>
     </div>
   </div>
 </template>
@@ -48,6 +51,10 @@ export default {
     colour: {
       type: String,
       default: 'text-black'
+    },
+    driveLink: {
+      type: String,
+      default: ''
     },
     statSubtitle: {
       type: String,

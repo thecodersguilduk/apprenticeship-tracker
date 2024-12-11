@@ -182,6 +182,13 @@ export default {
                   }
                   symbol
                 }
+                ... on LinkValue {
+                  column {
+                    id
+                    title
+                  }
+                  url
+      					}
                 ... on BoardRelationValue {
                   column {
                     title

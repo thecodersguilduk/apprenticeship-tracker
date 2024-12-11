@@ -36,6 +36,7 @@
           </div>
           <div class="">
             <card-stats statSubtitle="PORTFOLIO/ACTIVITY LOG" :statTitle="portfolioact_log_progress" 
+            :driveLink="drive_link"
               
                  />
           </div>
@@ -71,6 +72,7 @@ export default {
     const otjh_achieved = ref('');
     const otjh_target = ref('');
     const portfolioact_log_progress = ref('');
+    const drive_link = ref('');
     console.log(apprenticeData);
 
     watch(apprenticeData, (newData) => {
@@ -106,6 +108,10 @@ export default {
         portfolioact_log_progress.value = newData.portfolioact_log_progress
       }
 
+      if( newData && newData.g_drive) {
+        drive_link.value = newData.g_drive
+      }
+
 
     }, { immediate: true });
 
@@ -120,6 +126,7 @@ export default {
       otjh_achieved,
       otjh_target,
       portfolioact_log_progress,
+      drive_link
     };
   },
 };
