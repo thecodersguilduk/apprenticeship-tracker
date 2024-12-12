@@ -1,27 +1,14 @@
 <template>
   <div class="flex text-white gap-2 items-center">
     <a
-      class="text-blueGray-500 block pl-4 cursor-pointer"
+      class="text-blueGray-500 block pl-4 cursor-pointer flex items-center"
       href="#"
       ref="btnDropdownRef"
       @click="toggleDropdown"
     >
     <span v-if="apprenticeData?.name">Welcome {{ apprenticeData?.name }}</span>
     <span v-else>Welcome</span>
-    <span class="font-bold text-xl ml-2">&#8595;</span>
-
-    
-      <!-- <div class="items-center flex">
-        <span
-          class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
-        >
-          <img
-            alt="..."
-            class="w-full rounded-full align-middle border-none shadow-lg"
-            :src="image"
-          />
-        </span>
-      </div> -->
+    <span class="font-bold text-xl"><img class="" :src="downCarat" alt="click to reveal menu including logout button" /></span>
     </a>
     <div
       ref="popoverDropdownRef"
@@ -47,6 +34,7 @@ import { ref } from 'vue';
 import { createPopper } from "@popperjs/core";
 import { signOut, auth } from "@/firebase";
 import image from "@/assets/img/team-1-800x800.jpg";
+import downCarat from "@/assets/img/caret-down-svgrepo-com.svg";
 import { router } from "@/main.js";
 import { useBoardStore } from "../../store/useBoardStore";
 import { storeToRefs } from 'pinia';
@@ -87,6 +75,7 @@ export default {
       logout,
       btnDropdownRef,
       popoverDropdownRef,
+      downCarat
     };
   },
 };
