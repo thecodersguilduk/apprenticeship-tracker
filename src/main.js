@@ -29,11 +29,6 @@ import Login from "@/views/auth/AppLogin.vue";
 import Register from "@/views/auth/AppRegister.vue";
 import ForgotPassword from "@/views/auth/ForgotPassword.vue";
 
-// views without layouts
-
-import Landing from "@/views/AppLanding.vue";
-import Profile from "@/views/AppProfile.vue";
-//import Index from "@/views/Index.vue";
 
 // routes
 
@@ -71,14 +66,6 @@ const routes = [
         component: ForgotPassword,
       },
     ],
-  },
-  {
-    path: "/landing",
-    component: Landing,
-  },
-  {
-    path: "/profile",
-    component: Profile,
   },
   {
     path: "/",

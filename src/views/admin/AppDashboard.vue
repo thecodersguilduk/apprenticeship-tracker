@@ -10,7 +10,7 @@
         <card-schedule />
       </div>
       <div class="w-full xl:w-4/12 px-4">
-        <card-social-traffic />
+        <progress-table />
       </div>
     </div>
   </div>
@@ -18,9 +18,9 @@
 <script>
 import CardLineChart from "@/components/Cards/CardLineChart.vue";
 import CardSchedule from "@/components/Cards/CardSchedule.vue";
-import CardSocialTraffic from "@/components/Cards/CardSocialTraffic.vue";
-import { useBoardStore  } from "../../store/useBoardStore";
+import ProgressTable from "@/components/Cards/ProgressTable";
 import { storeToRefs } from 'pinia';
+import { useBoardStore } from "../../store/useBoardStore";
 
 
 export default {
@@ -28,7 +28,7 @@ export default {
   components: {
     CardLineChart,
     CardSchedule,
-    CardSocialTraffic,
+    ProgressTable,
   },
 
   setup() {
