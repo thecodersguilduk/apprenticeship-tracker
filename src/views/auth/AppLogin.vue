@@ -76,7 +76,7 @@
 <script>
 import logo from "@/assets/img/logo/TCG_Square_Logo_Blue.svg";
 import { ref } from "vue";
-import { auth, signInWithEmailAndPassword } from "@/firebase";
+import { getAuth, signInWithEmailAndPassword, setPersistence, browserSessionPersistence } from "firebase/auth";
 import { useRouter } from "vue-router";
 import { useBoardStore } from "@/store/useBoardStore";
 import { transformLoginErrors } from "@/helpers/transformLoginErrors";
@@ -89,9 +89,13 @@ export default {
     const error = ref("");
     const router = useRouter();
     const boardStore = useBoardStore();
+    const auth = getAuth(); // Initialize Firebase Auth
 
     async function submit() {
       try {
+        // Set session persistence
+        await setPersistence(auth, browserSessionPersistence);
+
         // Authenticate the user
         const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
         const userId = userCredential.user.uid;
@@ -110,3 +114,4 @@ export default {
   },
 };
 </script>
+
