@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="apprenticeData">
     <div class="flex flex-wrap">
       <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto">
         <card-line-chart />
@@ -13,6 +13,9 @@
         <card-social-traffic />
       </div>
     </div>
+  </div>
+  <div v-else>
+    <p>Your data was not found - please speak to your coach!</p>
   </div>
 </template>
 <script>

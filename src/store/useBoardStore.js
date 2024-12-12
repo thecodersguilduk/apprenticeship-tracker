@@ -64,25 +64,37 @@ export const useBoardStore = defineStore("board", {
       }) || [];
     },
     getProgress(state) {
+      if(!state.apprenticeData?.start_date || !state.apprenticeData?.practical_end_date) return;
+
+      let elapsedTimePercentage;
+      let ksbProgressPercentage;
+      let otjProgressPercentage;
+
       const today = new Date();
-
+      
+      //set elapsed time percentage - we need to check if the apprentice has started yet, or if the apprentice has finished already.
       if(isBefore(today, state.apprenticeData?.start_date)){
-        return 0;
+        elapsedTimePercentage = null;
+      }else if(isAfter(today, state.apprenticeData?.practical_end_date)){
+        elapsedTimePercentage = 100;
+      } else {
+        const totalDuration = differenceInDays(state.apprenticeData?.practical_end_date, state.apprenticeData?.start_date);
+        const elapsedTime = differenceInDays(today, state.apprenticeData?.start_date);
+        elapsedTimePercentage = Math.round((elapsedTime / totalDuration) * 100);
       }
 
-      if(isAfter(today, state.apprenticeData?.end_date)){
-        return 100;
+      if(state.apprenticeData?.otjh_target_min && state.apprenticeData?.otjh_achieved){
+      otjProgressPercentage = Math.round((state.apprenticeData?.otjh_achieved / state.apprenticeData?.otjh_target_min) * 100);
+      } else {
+        otjProgressPercentage = null;
       }
 
-      const totalDuration = differenceInDays(state.apprenticeData?.practical_end_date, state.apprenticeData?.start_date);
-      const elapsedTime = differenceInDays(today, state.apprenticeData?.start_date);
-
-      const elapsedTimePercentage = Math.round((elapsedTime / totalDuration) * 100);
-
-      const otjProgressPercentage = state.apprenticeData?.otjh_target_min ? Math.round((state.apprenticeData?.otjh_achieved / state.apprenticeData?.otjh_target_min) * 100) : 0;
-
-      const ksbProgress = state.apprenticeData?.ksb_progress.split(',');
-      const ksbProgressPercentage = Math.round(ksbProgress[ksbProgress.length - 1]);
+      if(state.apprenticeData?.ksb_progress){
+        const ksbProgress = state.apprenticeData?.ksb_progress.split(',');
+        ksbProgressPercentage = Math.round(ksbProgress[ksbProgress.length - 1]);
+      } else {
+        ksbProgressPercentage = null;
+      }
 
       return {
         elapsedTimePercentage,

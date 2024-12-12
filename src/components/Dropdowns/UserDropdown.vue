@@ -2,11 +2,13 @@
   <div class="flex text-white gap-2 items-center">
     <a
       class="text-blueGray-500 block pl-4 cursor-pointer"
-      href="#pablo"
+      href="#"
       ref="btnDropdownRef"
       @click="toggleDropdown"
     >
-    Welcome {{ apprenticeData?.name }}
+    <span v-if="apprenticeData?.name">Welcome {{ apprenticeData?.name }}</span>
+    <span v-else>Welcome</span>
+    <span class="font-bold text-xl ml-2">&#8595;</span>
 
     
       <!-- <div class="items-center flex">

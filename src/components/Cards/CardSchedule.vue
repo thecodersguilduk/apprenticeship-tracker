@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="trainingPlan && trainingPlan.length > 0"
     class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
   >
     <div class="rounded-t mb-0 px-4 py-3 border-0">
@@ -23,7 +24,7 @@
     </div>
     <div class="block w-full overflow-x-auto">
       <!-- Projects table -->
-      <table v-if="trainingPlan && trainingPlan.length" class="items-center w-full bg-transparent border-collapse">
+      <table class="items-center w-full bg-transparent border-collapse">
         <thead>
           <tr>
             <th
@@ -74,6 +75,9 @@
         </tbody>
       </table>
     </div>
+  </div>
+  <div v-else class="bg-white h-full font-bold font-md">
+    <p>No training plan available - please speak to your Coach</p>
   </div>
 </template>
 

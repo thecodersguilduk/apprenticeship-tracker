@@ -106,8 +106,9 @@ export default {
     practical_end_date() {
       return this.apprenticeData?.practical_end_date || null;
     },
-    ksb_progress(){
-      return this.apprenticeData?.ksb_progress.split(',') || null;
+    ksb_progress() {
+      const ksbProgress = this.apprenticeData?.ksb_progress;
+      return ksbProgress && ksbProgress.length > 1 ? ksbProgress.split(',') : null;
     },
     isDataReady() {
       return this.start_date && this.practical_end_date && this.ksb_progress;
