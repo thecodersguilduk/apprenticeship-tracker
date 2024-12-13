@@ -1,5 +1,6 @@
 <template>
   <div
+    
     class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-black"
   >
     <div class="rounded-t mb-0 px-4 py-3 bg-transparent">
@@ -26,6 +27,7 @@
 import { mapState } from "pinia";
 import Chart from "chart.js";
 import { useBoardStore } from "../../store/useBoardStore";
+import { nextTick } from "vue";
 
 function calculateMonthsBetween(startDate, endDate) {
   const months =
@@ -72,6 +74,10 @@ function generateProgressCurve(totalMonths) {
 }
 
 function generateActualProgressCurve(progressData, totalMonths, elapsedMonths) {
+  if(progressData.length === 0) {
+    return;
+  }
+
   const data = Array(totalMonths).fill(null); // Initialize all months with null
   if (progressData.length === 1) {
     data[elapsedMonths - 1] = progressData[0]; // Place the single progress point in the current month
@@ -107,7 +113,13 @@ export default {
       return this.apprenticeData?.practical_end_date || null;
     },
     ksb_progress(){
-      return this.apprenticeData?.ksb_progress.split(',') || null;
+      if(!this.apprenticeData?.ksb_progress){
+        return [];
+      } else if (this.apprenticeData?.ksb_progress.length === 1){
+        return Array.from(this.apprenticeData?.ksb_progress[0]);
+      } else {
+        return this.apprenticeData?.ksb_progress.split(',');
+      }
     },
     isDataReady() {
       return this.start_date && this.practical_end_date && this.ksb_progress;
@@ -127,8 +139,16 @@ export default {
   },
   methods: {
     updateChart() {
-      if (!this.start_date || !this.practical_end_date) return;
+    if (!this.start_date || !this.practical_end_date) return;
 
+    nextTick(() => {
+      const canvas = document.getElementById("line-chart");
+      if (!canvas) {
+        console.error("Canvas element not found!");
+        return;
+      }
+
+      const ctx = canvas.getContext("2d");
       const startDate = new Date(this.start_date);
       const endDate = new Date(this.practical_end_date);
       const totalMonths = calculateMonthsBetween(startDate, endDate);
@@ -142,17 +162,12 @@ export default {
       });
 
       const expectedProgressData = generateProgressCurve(totalMonths);
-
       const actualProgressData = generateActualProgressCurve(this.ksb_progress, totalMonths, elapsedMonths);
-
-
-
 
       if (this.chart) {
         this.chart.destroy();
       }
 
-      const ctx = document.getElementById("line-chart").getContext("2d");
       this.chart = new Chart(ctx, {
         type: "line",
         data: {
@@ -211,7 +226,8 @@ export default {
           },
         },
       });
-    },
+    });
+  },
   },
   mounted() {
     if (this.isDataReady) {

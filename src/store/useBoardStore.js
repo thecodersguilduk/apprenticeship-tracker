@@ -37,20 +37,21 @@ export const useBoardStore = defineStore("board", {
   },
   getters: {
     trainingPlan(state) {
-      return state.apprenticeData?.training_plan
+      return state.apprenticeData?.training_plan ? 
+      state.apprenticeData?.training_plan
       .map(session => {
         return {
           ...session,
-          date: format(new Date(session.date), 'dd/MM/yyyy')
+          date: session.date ? format(new Date(session.date), 'dd/MM/yyyy') : 'tbc'
         }
-      }) || [];
+      }) : [];
     },
     nextSixWeeksTraining(state) {
       const today = startOfDay(new Date()); // Normalize to start of the day
       const sixWeeksLater = addDays(today, 42); // Add 42 days
 
-      return state.apprenticeData?.training_plan
-      .filter(session => {
+      return state.apprenticeData?.training_plan ?
+      state.apprenticeData?.training_plan.filter(session => {
           const sessionDate = startOfDay(new Date(session.date)); // Normalize session date
 
           return isWithinInterval(sessionDate, { start: today, end: sixWeeksLater });
@@ -59,9 +60,9 @@ export const useBoardStore = defineStore("board", {
       .map(session => {
         return {
           ...session,
-          date: format(new Date(session.date), 'dd/MM/yyyy')
+          date: session.date ? format(new Date(session.date), 'dd/MM/yyyy') : 'tbc'
         }
-      }) || [];
+      }) : [];
     },
     getProgress(state) {
       const today = new Date();
@@ -81,8 +82,13 @@ export const useBoardStore = defineStore("board", {
 
       const otjProgressPercentage = state.apprenticeData?.otjh_target_min ? Math.round((state.apprenticeData?.otjh_achieved / state.apprenticeData?.otjh_target_min) * 100) : 0;
 
-      const ksbProgress = state.apprenticeData?.ksb_progress.split(',');
-      const ksbProgressPercentage = Math.round(ksbProgress[ksbProgress.length - 1]);
+      const ksbProgress = state.apprenticeData?.ksb_progress
+      ? state.apprenticeData.ksb_progress.split(',')
+      : []; // Return an empty array if ksb_progress is undefined or empty
+
+    const ksbProgressPercentage = ksbProgress.length > 0
+      ? Math.round(ksbProgress[ksbProgress.length - 1])
+      : 0; // Default to 0 if ksbProgress is empty
 
       return {
         elapsedTimePercentage,
