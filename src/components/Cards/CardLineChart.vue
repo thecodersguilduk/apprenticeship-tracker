@@ -94,10 +94,6 @@ function generateActualProgressCurve(progressData, totalMonths, elapsedMonths) {
 
 }
 
-
-
-
-
 export default {
   data() {
     return {
