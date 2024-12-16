@@ -1,9 +1,9 @@
 
 
 <template>
-  <div id="app">
+  <div id="app" class="min-h-screen">
      <!-- Main Content -->
-    <div>
+    <div class="min-h-screen">
       <!-- Your main page content goes here -->
       <router-view />
     </div>

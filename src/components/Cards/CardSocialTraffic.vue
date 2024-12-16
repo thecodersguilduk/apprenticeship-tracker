@@ -13,18 +13,18 @@
     </div>
     <div class="block w-full overflow-x-auto">
       <!-- Projects table -->
-      <table class="items-center w-full bg-transparent border-collapse">
+      <table v-if="metrics?.elapsedTimePercentage !== undefined && metrics?.ksbProgressPercentage !== undefined && metrics?.otjProgressPercentage !== undefined" class="items-center w-full bg-transparent border-collapse">
         <thead class="thead-light">
 
         </thead>
         <tbody>
-          <tr>
+          <tr v-if="metrics?.elapsedTimePercentage !== undefined">
             <th
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
             >
              Apprenticeship Completion
             </th>
-            <td v-if="metrics.elapsedTimePercentage"
+            <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
               <div class="flex items-center">
@@ -42,7 +42,7 @@
               </div>
             </td>
           </tr>
-          <tr>
+          <tr v-if="metrics?.otjProgressPercentage !== null">
             <th
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
             >
@@ -52,13 +52,13 @@
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
               <div class="flex items-center">
-                <span class="mr-2" v-if="metrics.otjProgressPercentage">{{ metrics.otjProgressPercentage }}%</span>
+                <span class="mr-2">{{ metrics.otjProgressPercentage }}%</span>
                 <div class="relative w-full">
                   <div
                     class="overflow-hidden h-2 text-xs flex rounded bg-red-200"
                   >
                     <div
-                    v-if="metrics.otjProgressPercentage"
+                    v-if="metrics?.otjProgressPercentage !== null"
                       :style="{ width:  metrics.otjProgressPercentage +'%' }"
                       class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
                     ></div>
@@ -67,13 +67,13 @@
               </div>
             </td>
           </tr>
-          <tr>
+          <tr v-if="metrics?.ksbProgressPercentage !== null">
             <th
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
             >
              Portfolio/KSB's
             </th>
-            <td v-if="metrics.ksbProgressPercentage"
+            <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
               <div class="flex items-center">
@@ -93,6 +93,9 @@
           </tr>
         </tbody>
       </table>
+      <div v-else class="p-6 flex flex-col items-center justify-center font-bold text-md">
+        <p>No current progress data available</p>
+      </div>
     </div>
   </div>
 </template>
@@ -106,5 +109,4 @@ const boardStore = useBoardStore();
 
 const metrics = computed(() => boardStore.getProgress);
 
-console.log(metrics.value)
 </script>
