@@ -97,11 +97,7 @@ export const useBoardStore = defineStore("board", {
       }
 
       
-    }
-
-    
-    
-    
+    } 
   },
   persist: true,
 });

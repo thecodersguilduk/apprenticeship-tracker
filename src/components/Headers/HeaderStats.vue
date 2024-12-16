@@ -1,6 +1,6 @@
 <template>
   <!-- Header -->
-  <div class="relative bg-blue-200 md:pt-32 pb-32 pt-12">
+  <div v-if="apprenticeData" class="relative bg-blue-200 md:pt-32 pb-32 pt-12">
     <div class=" md:px-10 mx-auto w-full">
       <div class="flex flex-col gap-4">
         <h1 class="text-white text-3xl lg:text-5xl font-bold "><a href="/">{{ apprenticeData?.name }}</a> - {{ apprenticeData?.cohort }} Cohort</h1>
@@ -68,6 +68,9 @@
         </div>
     </div>
   </div>
+  <div v-else>
+    <p>Your data was not found - please speak to your coach</p>
+  </div>
 </template>
 
 <script>
@@ -122,9 +125,14 @@ export default {
       }
 
       if (newData && newData.ksb_progress) {
+        if(newData.ksb_progress.length > 1){
         const progressArray = newData.ksb_progress.split(',');
-        
         ksb_progress.value = progressArray[progressArray.length - 1] + '%';
+        } else {
+          ksb_progress.value = newData.ksb_progress + '%';
+        }
+        
+        
       }
 
       if (newData && newData.otjh_achieved) {
