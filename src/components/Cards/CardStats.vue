@@ -3,6 +3,7 @@
     class="relative flex flex-col min-w-0 break-words rounded mb-6 xl:mb-0 shadow-lg h-full"
     :class="[bgColour, colour]"
   >
+  <a v-if="link" :href="link" class="absolute inset-0 cursor-pointer z-50" target="_blank"></a>
     <div class="flex-auto p-4">
       <div class="flex flex-wrap">
         <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
@@ -44,6 +45,10 @@
 export default {
   name: "card-stats",
   props: {
+    link: {
+      type: String,
+      default: ''
+    },
     bgColour: {
       type: String,
       default: 'bg-white'

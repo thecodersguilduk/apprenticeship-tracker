@@ -4,10 +4,27 @@
     <div class=" md:px-10 mx-auto w-full">
       <div class="flex flex-col gap-4">
         <h1 class="text-white text-3xl lg:text-5xl font-bold "><a href="/">{{ apprenticeData?.name }}</a> - {{ apprenticeData?.cohort }} Cohort</h1>
-        <p v-if="apprenticeData?.coach" class="text-xl text-white">Your Technical Coach is: <span class="font-bold">{{ apprenticeData?.coach }}</span></p>
+        <p class="text-xl text-white">You are on the Apprenticeship Standard for: {{apprenticeData?.apprenticeship_standard}}, and your Technical Coach is: <span class="font-bold">{{ apprenticeData?.coach }}</span></p>
       </div>
       
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 py-4 gap-2">
+          <div class="">
+            <contact-component btnText="Contact Safeguarding" link="mailto:safeguarding@thecodersguild.org.uk" />
+          </div>
+
+          <div class="">
+            <contact-component btnText="Report Absence" link="mailto:absences@thecodersguild.org.uk" />
+          </div>
+
+          <div class="">
+            <contact-component btnText="Safeguarding" link="mailto:safeguarding@thecodersguild.org.uk" />
+          </div>
+
+          <div class="">
+            <contact-component btnText="Safeguarding" link="mailto:safeguarding@thecodersguild.org.uk" />
+          </div>
+
+          <!-- todo -amend these components to make them more graceful to manage -->
           <div class="">
             <card-stats statSubtitle="RAG Rating" :statTitle="rag"
               statPercentColor="text-blue-500"
@@ -29,7 +46,8 @@
           <div class="">
             <card-stats statSubtitle="Time to EPA" :statTitle="time_to_epa"
               statPercentColor="text-blue-500"
-              colour="text-black" />
+              colour="text-black"
+              :link="epa_information" />
           </div>
 
           <div class="">
@@ -54,6 +72,7 @@
 
 <script>
 import CardStats from "@/components/Cards/CardStats.vue";
+import ContactComponent from "../Cards/ContactComponent.vue";
 import { useBoardStore } from "../../store/useBoardStore";
 import { storeToRefs } from 'pinia';
 import { ragRatingColor } from "../../helpers/ragRatingColors";
@@ -63,6 +82,7 @@ import { getDifferenceFormatted } from "../../helpers/getDifferenceBetweenDates"
 export default {
   components: {
     CardStats,
+    ContactComponent
   },
   setup() {
     const boardStore = useBoardStore();
@@ -77,6 +97,7 @@ export default {
     const otjh_target = ref('');
     const portfolioact_log_progress = ref('');
     const drive_link = ref('');
+    const epa_information = ref('');
     console.log(apprenticeData);
 
     watch(apprenticeData, (newData) => {
@@ -85,6 +106,10 @@ export default {
       if (newData && newData.overall_rag) {
         rag.value = newData.overall_rag
         rag_colour.value = ragRatingColor(newData.overall_rag);
+      }
+
+      if (newData && newData.epa_information) {
+        epa_information.value = newData.epa_information
       }
 
       if (newData && newData.start_date) {
@@ -132,7 +157,8 @@ export default {
       otjh_achieved,
       otjh_target,
       portfolioact_log_progress,
-      drive_link
+      drive_link,
+      epa_information
     };
   },
 };

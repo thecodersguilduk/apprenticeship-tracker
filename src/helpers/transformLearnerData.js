@@ -8,21 +8,22 @@ export function replaceSpecialCharacters(str) {
 }
 
 export function transformLearnerData(item) {
-  console.log(item);
   return {
     
       id: item.id,
       name: item.name,
       ...(Array.isArray(item.column_values)
           ? item.column_values.reduce((acc, column) => {
+            
                 if (column && column.column && column.column.title) {
+                    
                     const title = replaceSpecialCharacters(column.column.title.toLowerCase());
                     let value = "";
 
                     // Check if it has values (like labels) or dates
                     if (column.values && column.values.length > 0) {
                         value = column.values[0].label; // Use the first label
-                    } else if(column.column.id === 'link'){
+                    } else if(column.url){
                         value = column.url;
                     } else if (column.date) {
                         value = format(column.date, "MMMM dd, yyyy"); // Format the date
@@ -68,10 +69,10 @@ export function extractTrainingPlan(item) {
 
 function mapColumnNames(columnId) {
   const columnMappings = {
-      date__1: "date",
-      status8: "type",
-      dropdown__1: "trainer",
-      duration: "duration",
+      date4: "date",
+      dropdown50__1: "type",
+      dropdown5__1: "trainer",
+      numbers_Mjj6ySaM: "duration",
       status__1: "status",
       long_text__1: "notes",
       // Add more mappings as needed
