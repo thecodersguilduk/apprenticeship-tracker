@@ -13,79 +13,79 @@
           <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
             <form class="py-10" @submit.prevent="register">
 
-<div class="relative w-full mb-3">
-  <label
-    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-    htmlFor="grid-password"
-  >
-    Email
-  </label>
-  <input
-    v-model="email"
-    type="email"
-    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-    placeholder="Email"
-    required
-  />
-</div>
+              <div class="relative w-full mb-3">
+                <label
+                  class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                  htmlFor="grid-password"
+                >
+                  Email
+                </label>
+                <input
+                  v-model="email"
+                  type="email"
+                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  placeholder="Email"
+                  required
+                />
+              </div>
 
-<div class="relative w-full mb-3">
-  <label
-    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-    htmlFor="grid-password"
-  >
-    Password
-  </label>
-  <input
-    v-model="password"
-    type="password"
-    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-    placeholder="Password"
-    required
-  />
-</div>
+              <div class="relative w-full mb-3">
+                <label
+                  class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                  htmlFor="grid-password"
+                >
+                  Password
+                </label>
+                <input
+                  v-model="password"
+                  type="password"
+                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  placeholder="Password"
+                  required
+                />
+              </div>
 
-<div class="relative w-full mb-3">
-  <label
-    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-    htmlFor="grid-apprenticeId"
-  >
-  ID Number - this will be in your joining email
-  </label>
-  <input
-    v-model="apprenticeId"
-    type="text"
-    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-    placeholder="Apprentice ID"
-    required
-  />
-</div>
+              <div class="relative w-full mb-3">
+                <label
+                  class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                  htmlFor="grid-apprenticeId"
+                >
+                ID Number - this will be in your joining email
+                </label>
+                <input
+                  v-model="apprenticeId"
+                  type="text"
+                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  placeholder="Apprentice ID"
+                  required
+                />
+              </div>
 
-<div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input
-      id="customCheckLogin"
-      type="checkbox"
-      class="form-checkbox rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
-      required
-    />
-    <span class="ml-2 text-sm font-semibold text-blueGray-600">
-      I agree with the
-      <a href="https://thecodersguild.org.uk/privacy" class="text-blue-200">
-        Privacy Policy
-      </a>
-    </span>
-  </label>
-</div>
+              <div>
+                <label class="inline-flex items-center cursor-pointer">
+                  <input
+                    id="customCheckLogin"
+                    type="checkbox"
+                    class="form-checkbox rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
+                    required
+                  />
+                  <span class="ml-2 text-sm font-semibold text-blueGray-600">
+                    I agree with the
+                    <a href="https://thecodersguild.org.uk/pdf/Privacy_Policy_v1.4.pdf" class="text-blue-200">
+                      Privacy Policy
+                    </a>
+                  </span>
+                </label>
+              </div>
 
-        <div class="text-center mt-6">
-          <button
-            class="bg-blue-200 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-          type="submit"
-          >
-            Create Account
-          </button>
-        </div>
+              <div class="text-center mt-6">
+                <button
+                  class="bg-blue-200 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                type="submit"
+                >
+                  Create Account
+                </button>
+              </div>
 
         <div class="mt-6 text-red-500" v-if="error">{{ error }}</div>
         </form>
