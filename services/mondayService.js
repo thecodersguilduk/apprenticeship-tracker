@@ -196,6 +196,7 @@ export default {
                   }
                   id
                   linked_items {
+                    id
                     name
                     column_values {
                       text

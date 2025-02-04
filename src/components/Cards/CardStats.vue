@@ -2,8 +2,24 @@
   <div
     class="relative flex flex-col min-w-0 break-words rounded mb-6 xl:mb-0 shadow-lg h-full"
     :class="[bgColour, colour]"
+    @click="toggleKSBs"
   >
-  <a v-if="link" :href="link" class="absolute inset-0 cursor-pointer z-50" target="_blank"></a>
+  <div
+      v-if="showKSBs && isKSBComponent"
+      class="absolute bg-white w-full max-w-2xl backdrop-blur-md p-4 z-50 rounded-lg shadow-md"
+    >
+      <h6 class="text-lg font-bold mb-2">KSB Status</h6>
+      <ul v-if="ksbs.length" class="text-green-500">
+        <li v-for="ksb in ksbs" :key="ksb.id"><span v-if="ksb.score >= 1">test</span></li>
+      </ul>
+      <ul v-if="ksbs.length" class="text-red-500">
+        <li v-for="ksb in ksbs" :key="ksb.id"><span v-if="ksb.score < 1">test2</span></li> 
+      </ul>
+      <button @click="toggleKSBs" class="mt-2 text-sm text-blue-500 underline">
+        Close
+      </button>
+    </div>
+  <a v-if="link" :href="link" class="absolute inset-0 cursor-pointer z-40" target="_blank"></a>
     <div class="flex-auto p-4">
       <div class="flex flex-wrap">
         <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
@@ -35,8 +51,8 @@
         </span>
         <span class="whitespace-nowrap">{{ statDescription }}</span>
       </p>
-      <a v-if="driveLink" :href="driveLink" target="_blank" class="text-sm text-blue-200 underline mt-4 cursor-pointer">
-        Click here to view your drive folder
+      <a v-if="bottomLink" :href="bottomLink" target="_blank" class="text-sm text-blue-200 underline mt-4 cursor-pointer">
+        {{bottomLinkText}}
       </a>
     </div>
   </div>
@@ -57,7 +73,11 @@ export default {
       type: String,
       default: 'text-black'
     },
-    driveLink: {
+    bottomLink: {
+      type: String,
+      default: ''
+    },
+    bottomLinkText: {
       type: String,
       default: ''
     },
@@ -100,6 +120,24 @@ export default {
       type: String,
       default: "",
     },
+    isKSBComponent: {
+      type: Boolean,
+      default: false,
+    },
+    ksbs: {
+      type: Array,
+      default: () => [],
+    },
   },
+  data() {
+    return {
+      showKSBs: false,
+    }
+  },
+  methods: {
+    toggleKSBs() {
+      this.showKSBs = !this.showKSBs;
+    }
+  }
 };
 </script>

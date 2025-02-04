@@ -8,21 +8,6 @@
       </div>
       
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 py-4 gap-2">
-          <div class="">
-            <contact-component btnText="Contact Safeguarding" link="mailto:safeguarding@thecodersguild.org.uk" />
-          </div>
-
-          <div class="">
-            <contact-component btnText="Report Absence" link="mailto:absences@thecodersguild.org.uk" />
-          </div>
-
-          <div class="">
-            <contact-component btnText="Safeguarding" link="mailto:safeguarding@thecodersguild.org.uk" />
-          </div>
-
-          <div class="">
-            <contact-component btnText="Safeguarding" link="mailto:safeguarding@thecodersguild.org.uk" />
-          </div>
 
           <!-- todo -amend these components to make them more graceful to manage -->
           <div class="">
@@ -51,19 +36,38 @@
           </div>
 
           <div class="">
-            <card-stats statSubtitle="KSB Progress" :statTitle="ksb_progress" />
+            <card-stats statSubtitle="KSB Progress" :statTitle="ksb_progress" isKSBComponent="true" ksbs="ksb_matrix" />
           </div>
-          <div class="">
-            <card-stats statSubtitle="OTJ HOURS LOGGED" :statTitle="otjh_achieved" :statTarget="otjh_target"  />
-          </div>
+
           <div class="">
             <card-stats statSubtitle="PORTFOLIO/ACTIVITY LOG" :statTitle="portfolioact_log_progress" 
-            :driveLink="drive_link"
-              
-                 />
+            :bottomLink="drive_link" bottomLinkText="Click here for your drive folder"
+            />
           </div>
+
+          <div class="">
+            <card-stats statSubtitle="OTJ HOURS LOGGED" :statTitle="otjh_achieved" :statTarget="otjh_target" bottomLink="https://wkf.ms/3OeZTQh"
+            bottomLinkText="Click here to enter OTJ Logs"  />
+          </div>
+          
           <div class="h-full w-full bg-white relative">
-            <a target="_blank" class="absolute inset-0 cursor-pointer flex items-center justify-center font-bold" href="https://wkf.ms/3OeZTQh">Submit OTJ Logs!</a>
+            <card-stats statSubtitle="End Date:" :statTitle="end_date" />
+          </div>
+
+          <div class="">
+            <contact-component btnText="Contact Safeguarding" link="mailto:safeguarding@thecodersguild.org.uk" />
+          </div>
+
+          <div class="">
+            <contact-component btnText="Report Absence" link="mailto:absences@thecodersguild.org.uk" />
+          </div>
+
+          <div class="">
+            <contact-component btnText="Contact Apprenticeship Manager" link="mailto:shelley@thecodersguild.org.uk" />
+          </div>
+
+          <div class="">
+            <contact-component btnText="Contact Coach" link="#" />
           </div>
         </div>
     </div>
@@ -101,10 +105,20 @@ export default {
     const portfolioact_log_progress = ref('');
     const drive_link = ref('');
     const epa_information = ref('');
+    const ksb_matrix = ref('');
+    const end_date = ref('');
     console.log(apprenticeData);
 
     watch(apprenticeData, (newData) => {
 
+      if(newData && newData.ksb_matrix) {
+        ksb_matrix.value = newData.ksb_matrix
+      }
+
+
+      if (newData && newData.predicted_end_date) {
+        end_date.value = newData.predicted_end_date
+      }
       
       if (newData && newData.overall_rag) {
         rag.value = newData.overall_rag
@@ -166,7 +180,8 @@ export default {
       otjh_target,
       portfolioact_log_progress,
       drive_link,
-      epa_information
+      epa_information,
+      end_date
     };
   },
 };

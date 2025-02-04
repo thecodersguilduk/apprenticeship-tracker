@@ -36,6 +36,9 @@ export const useBoardStore = defineStore("board", {
     }
   },
   getters: {
+    ksb_matrix(state){
+      return state.apprenticeData?.ksb_matrix ? state.apprenticeData?.ksb_matrix : [];
+    },
     trainingPlan(state) {
       return state.apprenticeData?.training_plan ? 
       state.apprenticeData?.training_plan

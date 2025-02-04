@@ -41,7 +41,26 @@ export function transformLearnerData(item) {
 
       // Add processing specifically for 'Training Plan Connection'
       training_plan: extractTrainingPlan(item),
+      ksb_matrix: extractKsbMatrix(item),
   };
+}
+export function extractKsbMatrix(item) {  
+    const linkedItems = item.column_values?.find(
+      (col) => col.column?.title === "KSB Matrix"
+    )?.linked_items || [];
+  
+    const transformedMatrix = linkedItems.map((value) => {
+      const transformedColumns = value.column_values.reduce((acc, col) => {
+        acc[mapKsbMatrixColumnNames(col.id)] = col.text || "";
+        return acc;
+      }, {});
+
+  
+      return { id: value.name, ...transformedColumns };
+    });
+  
+  
+    return transformedMatrix;
 }
 
 export function extractTrainingPlan(item) {
@@ -59,12 +78,26 @@ export function extractTrainingPlan(item) {
           return acc;
       }, {});
 
+
       return {
           id: linkedItem.id,
           session_name: linkedItem.name, // Use the name directly as session name
-          ...transformedColumns, // Include all mapped columns
+          ...transformedColumns, 
       };
   });
+}
+
+function mapKsbMatrixColumnNames(columnId) {
+  const columnMappings = {
+      text__1: "description",
+      status7__1: "status",
+      numbers__1: "score",
+      
+      // Add more mappings as needed
+  };
+
+  return columnMappings[columnId] || columnId; // Default to the raw column ID if no mapping exists
+
 }
 
 function mapColumnNames(columnId) {
