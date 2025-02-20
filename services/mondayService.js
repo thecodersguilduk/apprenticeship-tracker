@@ -134,6 +134,14 @@ export default {
             id
             name
             column_values {
+
+                ... on MirrorValue {
+                    column {
+                      title
+                      type
+                    }
+                    display_value
+                  }
                 ... on EmailValue {
                     email
                     updated_at

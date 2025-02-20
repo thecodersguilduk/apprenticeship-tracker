@@ -67,7 +67,7 @@
           </div>
 
           <div class="">
-            <contact-component btnText="Contact Coach" link="#" />
+            <contact-component btnText="Contact Coach" :link="`mailto:${coach_email}`" />
           </div>
         </div>
     </div>
@@ -107,12 +107,17 @@ export default {
     const epa_information = ref('');
     const ksb_matrix = ref('');
     const end_date = ref('');
+    const coach_email = ref('');
     console.log(apprenticeData);
 
     watch(apprenticeData, (newData) => {
 
       if(newData && newData.ksb_matrix) {
         ksb_matrix.value = newData.ksb_matrix
+      }
+
+      if(newData && newData.coach_email){
+        coach_email.value = newData.coach_email
       }
 
 
@@ -181,7 +186,8 @@ export default {
       portfolioact_log_progress,
       drive_link,
       epa_information,
-      end_date
+      end_date,
+      coach_email
     };
   },
 };

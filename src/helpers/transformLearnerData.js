@@ -23,6 +23,9 @@ export function transformLearnerData(item) {
                     // Check if it has values (like labels) or dates
                     if (column.values && column.values.length > 0) {
                         value = column.values[0].label; // Use the first label
+                    } else if(column.column.type === "mirror"){
+                      console.log("we're here")
+                        value = column.display_value;
                     } else if(column.url){
                         value = column.url;
                     } else if (column.date) {
